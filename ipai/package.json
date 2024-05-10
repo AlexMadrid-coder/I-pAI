@@ -1,7 +1,7 @@
 {
-  "name": "i-pai",
-  "displayName": "I-pAI",
-  "description": "Interactive vs-code extension for dataframe treatment using pandasAI",
+  "name": "ipai",
+  "displayName": "I_pAI",
+  "description": "An interactive extension for data visualization and treatment for vs-code interactive jupyter notebooks (.ipynb)",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.89.0"
@@ -14,7 +14,7 @@
   "contributes": {
     "commands": [
       {
-        "command": "i-pai.helloWorld",
+        "command": "ipai.helloWorld",
         "title": "Hello World"
       }
     ]

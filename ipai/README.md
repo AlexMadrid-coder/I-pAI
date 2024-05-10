@@ -1,6 +1,6 @@
-# i-pai README
+# ipai README
 
-This is the README for your extension "i-pai". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "ipai". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 
