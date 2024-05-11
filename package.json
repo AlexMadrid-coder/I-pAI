@@ -16,6 +16,10 @@
       {
         "command": "ipai.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "ipai.showView",
+        "title": "Show primary view"
       }
     ]
   },
