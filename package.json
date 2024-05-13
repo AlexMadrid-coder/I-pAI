@@ -35,7 +35,7 @@
     "views": {
       "ipai-viewContainer": [
         {
-          "id": "ipaiDependencies",
+          "id": "ipai.mainContainer",
           "name": "Chat",
           "type": "webview"
         }
