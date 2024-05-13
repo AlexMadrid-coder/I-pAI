@@ -36,10 +36,8 @@
       "ipai-viewContainer": [
         {
           "id": "ipaiDependencies",
-          "name": "CHAT",
-          "contextualTitle": "IpAI Explorer",
-          "type": "webview",
-          "webview" : "src/webviews/index.html"
+          "name": "Chat",
+          "type": "webview"
         }
       ]
     }
