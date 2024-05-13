@@ -22,7 +22,26 @@
         "command": "ipai.showView",
         "title": "Show primary view"
       }
-    ]
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ipai-viewContainer",
+          "title": "I-pAI",
+          "icon": "src/Assets/img/panda-icon.png"
+        }
+      ]
+    },
+    "views": {
+      "ipai-viewContainer": [
+        {
+          "id": "ipaiDependencies",
+          "name": "CHAT",
+          "icon": "src/Assets/img/panda-icon.png",
+          "contextualTitle": "IpAI Explorer"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
