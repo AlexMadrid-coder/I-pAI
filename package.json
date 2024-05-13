@@ -19,8 +19,8 @@
         "title": "Hello World"
       },
       {
-        "command": "ipai.showView",
-        "title": "Show primary view"
+        "command": "extension.ipai.show",
+        "title": "Show I-pAI primary sidebar"
       }
     ],
     "viewsContainers": {
@@ -37,8 +37,9 @@
         {
           "id": "ipaiDependencies",
           "name": "CHAT",
-          "icon": "src/Assets/img/panda-icon.png",
-          "contextualTitle": "IpAI Explorer"
+          "contextualTitle": "IpAI Explorer",
+          "type": "webview",
+          "webview" : "src/webviews/index.html"
         }
       ]
     }
