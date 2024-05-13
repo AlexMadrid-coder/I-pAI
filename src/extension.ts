@@ -14,14 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.Uri.joinPath(context.extensionUri, 'src', 'index.html').fsPath
 	);
 	// Definimos la vista de extension (icon)
-	vscode.window.createTreeView('icon-view', {
-		treeDataProvider: new MiTreeDataProvider(),
-		showCollapseAll: true,
-		// ruta a los iconos
-		iconPath: {
-			dark: vscode.Uri.file(context.asAbsolutePath('src/Assets/img/panda-icon.png'))
-		}
-	})
+	
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
