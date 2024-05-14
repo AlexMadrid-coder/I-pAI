@@ -10,6 +10,9 @@
   "categories": [
     "Other"
   ],
+  "permissions": [
+    "filesystem"
+  ],
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {

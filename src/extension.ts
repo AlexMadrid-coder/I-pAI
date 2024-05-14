@@ -24,22 +24,21 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 				// Permitimos le ejecución de scripts de la vista
 				enableScripts: true,
 				// Configuramos permisos para la carga de recursos locales
-				localResourceRoots: [this._extensionUri]
+				localResourceRoots: [this._extensionUri, vscode.Uri.joinPath(this._extensionUri, 'media')],
+			
 			};
 
 			// Configuramos el contenido del webview
 			const indexPath = vscode.Uri.joinPath(this._extensionUri, 'media', 'index.html');
-			const indexHtml = fs.readFileSync(indexPath.fsPath, 'utf-8');
+			let html = fs.readFileSync(indexPath.fsPath, 'utf-8');
+			// Ahora updateamos los path's para CSS y JS
+			const scriptURI = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'main.js'));
+			const styleURI 	= webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'main.css'));
 
-			// Configuramos la Uri base para los recursos locales
-			const baseUri = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media'));
+        	html = html.replace(/<script\s+src="script.js"><\/script>/, `<script src="${scriptURI}"></script>`);
+			html = html.replace(/<link\s+rel="stylesheet"\s+href="styles.css">/, `<link rel="stylesheet" href="${styleURI}">`);
 
-			// Inyectamos la Uri base en el contenido html para que los recursos locales se carguen correctamente
-			const finalHtml = indexHtml.replace(/(src|href)="[^"]+"/g, (_, attr, src) => {
-				return `${attr}="${baseUri.toString()}/${src}"`;
-			});
-
-			webviewView.webview.html = finalHtml;
+			webviewView.webview.html = html;
 		}
 }
 
