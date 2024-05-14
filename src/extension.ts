@@ -18,7 +18,7 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 	public resolveWebviewView(
 		webviewView: vscode.WebviewView, 
 		context: vscode.WebviewViewResolveContext, 
-		token: vscode.CancellationToken) 
+		token: vscode.CancellationToken)
 		{
 			webviewView.webview.options = {
 				// Permitimos le ejecución de scripts de la vista

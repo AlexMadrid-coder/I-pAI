@@ -1,3 +1,3 @@
 document.getElementById('ipaiButton').addEventListener('click', () => {
-    alert('IPAI BUTTON CLICKEDDDDDD!!!!!!!!!')
+    console.log('IPAI BUTTON CLICKEDDDDDD!!!!!!!!!');
 });
