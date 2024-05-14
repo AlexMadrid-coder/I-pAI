@@ -35,8 +35,8 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 			const scriptURI = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'main.js'));
 			const styleURI 	= webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'main.css'));
 
-        	html = html.replace(/<script\s+src="script.js"><\/script>/, `<script src="${scriptURI}"></script>`);
-			html = html.replace(/<link\s+rel="stylesheet"\s+href="styles.css">/, `<link rel="stylesheet" href="${styleURI}">`);
+        	html = html.replace(/<script\s+src="main.js"><\/script>/, `<script src="${scriptURI}"></script>`);
+			html = html.replace(/<link\s+rel="stylesheet"\s+href="main.css">/, `<link rel="stylesheet" href="${styleURI}">`);
 
 			webviewView.webview.html = html;
 		}
