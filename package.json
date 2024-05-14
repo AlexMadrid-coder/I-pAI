@@ -28,7 +28,7 @@
         {
           "id": "ipai-viewContainer",
           "title": "I-pAI",
-          "icon": "src/Assets/img/panda-icon.png"
+          "icon": "media/img/panda-icon.png"
         }
       ]
     },
