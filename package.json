@@ -39,7 +39,7 @@
       "ipai-viewContainer": [
         {
           "id": "ipai.mainContainer",
-          "name": "Chat",
+          "name": "",
           "type": "webview"
         }
       ]

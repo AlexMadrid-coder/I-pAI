@@ -2,13 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
     <title>I-pAI</title>
 </head>
 <body>
-    <h1 id="hello">Hello, I-pAI SIDEBARRR !!!!!</h1>
-    <button id="ipaiButton">Pulsa pulsa</button>
+    <div class="container">
+        <div class="block"> 
+            <!-- 
+                Aquí vamos a tener todo el menu con los botones:
+                    seleccionar el LLE a utilizar
+                    botón nueva conversación
+                    botón cambiar ajustes
+                    botón historial de conversaciones 
+                    botón limpiar convesación
+            -->
+            <div class="menu-bar">
+                <div class="menu-item">
+                    <span class="icon"><img src="${webview.asWebviewUri(vscode.joinPath(this._extension, 'media', 'img', 'panda-icon.png'))}" alt="panda-icon"></span>
+                </div>
+                <div class="menu-title">
+                    I-pAI + LLE
+                </div>
+                <div class="menu-item">
+                    <span class="icon">+</span>  <!-- Nueva conversación -->
+                </div>
+                <div class="menu-item">
+                    <span class="icon">⚙️</span>  <!-- Ajustes-->
+                </div>
+                <div class="menu-item">
+                    <span class="icon">⏲️</span>  <!-- Historial-->
+                </div>
+                <div class="menu-item">
+                    <span class="icon">📋</span> <!-- Limpiar conversacion-->
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="block">
+            <!-- 
+                Aquí vamos a tener el componente principal de la vista, donde tendremos que elegir
+                la variable sobre la que vamos a trabajar y donde tendremos las salidas que nos 
+                proporcione el LLE
+            -->
+            <h1>welcome to I-paI</h1>
+            <p>Your code assistant!</p>
+            <p>Select the variables you're focusing on. Then you can ask to them.</p>
+            <p>New here? <a href="#" target="_blank">Check out the user guide</a></p>
+        </div>
+        <hr>
+        <div class="block">
+            <!-- 
+                Alomejor aquí pongo la salida y arriba simplemente seleccionar la o las variables
+                a trabajar
+            -->
+        </div>
+        <div class="block">
+            <!--
+                Parte de interacción principal del usuario donde este puede hacer preguntas al 
+                LLE sobre su dataset y solicitar gráficas o cosas
+            -->
+            <h2>Input Area</h2>
+            <input type="text" id="userInput" placeholder="Type your requests here...">
+        </div>
+    </div>
     <script src="main.js"></script>
 </body>
 </html>
