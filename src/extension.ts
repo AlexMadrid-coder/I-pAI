@@ -24,7 +24,10 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 				// Permitimos le ejecución de scripts de la vista
 				enableScripts: true,
 				// Configuramos permisos para la carga de recursos locales
-				localResourceRoots: [this._extensionUri, vscode.Uri.joinPath(this._extensionUri, 'media')],
+				localResourceRoots: 
+				[
+					vscode.Uri.joinPath(this._extensionUri, 'media'), 
+				],
 			
 			};
 

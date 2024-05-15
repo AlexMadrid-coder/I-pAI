@@ -8,5 +8,25 @@
 	},
 	// Turn off tsc task auto detection since we have the necessary tasks as npm scripts
 	"typescript.tsc.autoDetect": "off",
-	"cmake.configureOnOpen": false
+	"cmake.configureOnOpen": false,
+	"workbench.colorCustomizations": {
+		"activityBar.activeBackground": "#bd78e4",
+		"activityBar.background": "#bd78e4",
+		"activityBar.foreground": "#15202b",
+		"activityBar.inactiveForeground": "#15202b99",
+		"activityBarBadge.background": "#efd8af",
+		"activityBarBadge.foreground": "#15202b",
+		"commandCenter.border": "#e7e7e799",
+		"sash.hoverBorder": "#bd78e4",
+		"statusBar.background": "#a84ddc",
+		"statusBar.foreground": "#e7e7e7",
+		"statusBarItem.hoverBackground": "#bd78e4",
+		"statusBarItem.remoteBackground": "#a84ddc",
+		"statusBarItem.remoteForeground": "#e7e7e7",
+		"titleBar.activeBackground": "#a84ddc",
+		"titleBar.activeForeground": "#e7e7e7",
+		"titleBar.inactiveBackground": "#a84ddc99",
+		"titleBar.inactiveForeground": "#e7e7e799"
+	},
+	"peacock.color": "#a84ddc"
 }
