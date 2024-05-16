@@ -2,26 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- 
-        Esto hay que arreglarlo pq o pongo seguridad en la extensión o no va a funcionar
-        <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-scr /media/img 'self' data:; style-src /media/main.css 'unsafe-inline'; script-src /media/main.js 'unsafe-inline' ;"> 
-    -->
     <meta http-equiv="Content-Securicy-Policy" content="img-src 'self' data:${iconsBaseURI}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
     <title>I-pAI</title>
 </head>
 <body>
+    <!--
+        Este div va a contener toda la información de la página web
+    -->
     <div class="container">
-        <div class="block"> 
-            <!-- 
-                Aquí vamos a tener todo el menu con los botones:
-                    seleccionar el LLE a utilizar
-                    botón nueva conversación
-                    botón cambiar ajustes
-                    botón historial de conversaciones 
-                    botón limpiar convesación
-            -->
+        <!--
+            En este div tenemos el menubar con los botones que vamos a utilizar 
+        -->
+        <div class="block">
             <div class="menu-bar">
                 <div class="menu-item"> <!-- Icono con panda y selección de LLE -->
                     <span class="icon"><img src="${iconsBaseURI}/panda-c7-24-icon.png" alt="panda-icon"></span>
@@ -41,33 +35,30 @@
             </div>
         </div>
         <hr>
-        <div class="block">
-            <!-- 
-                Aquí vamos a tener el componente principal de la vista, donde tendremos que elegir
-                la variable sobre la que vamos a trabajar y donde tendremos las salidas que nos 
-                proporcione el LLE
-            -->
-            <h1>welcome to I-paI</h1>
-            <p>Your code assistant!</p>
-            <p>Select the variables you're focusing on. Then you can ask to them.</p>
-            <p>New here? <a href="#" target="_blank">Check out the user guide</a></p>
+        <!-- 
+            En este div vamos a tener el conjunto de divs de pregunta y respuesta
+        -->
+        <div class="block large">
+            <div id="ipai-div-initial">
+                <h1>welcome to I-paI</h1>
+                <p>Your code assistant!</p>
+                <p>Select the variables you're focusing on. Then you can ask to them.</p>
+                <p>New here? <a href="#" target="_blank">Check out the user guide</a></p>
+            </div>
         </div>
         <hr>
+        <!--
+            En este div va a estar el cuadro de texto que el usuario debe llenar con las preguntas
+            al dataset
+        -->
         <div class="block">
-            <!-- 
-                Alomejor aquí pongo la salida y arriba simplemente seleccionar la o las variables
-                a trabajar
-            -->
-        </div>
-        <div class="block">
-            <!--
-                Parte de interacción principal del usuario donde este puede hacer preguntas al 
-                LLE sobre su dataset y solicitar gráficas o cosas
-            -->
             <h2>Input Area</h2>
             <input type="text" id="userInput" placeholder="Type your requests here...">
         </div>
     </div>
+    <!--
+
+    -->
     <script src="main.js"></script>
 </body>
 </html>
