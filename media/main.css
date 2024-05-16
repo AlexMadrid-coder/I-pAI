@@ -5,29 +5,10 @@ body {
     padding: 20px;
 }
 
-.container {
-    max-width: 100%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-}
-
-.block {
-    margin-bottom: 20px;
-    width: 100%;
-    padding: 20px;
-}
-
-.block.large {
-    width: 80%;
-}
-
 hr {
-    border: 0;
-    border-top: 1px solid #444;
-    margin: 20px 0;
+    width: 100%;
+    border: 0.5px solid #c7c7c7;
+    margin: 10px 0;
 }
 
 h1, h2 {
@@ -39,9 +20,20 @@ p {
     font-size: 0.9em;
 }
 
-hr {
-    size: 3px;
-    color: #d6d6d6;
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.block {
+    width: 100%;
+}
+
+.block.large {
+    width: 80%;
 }
 
 .action-button {
@@ -63,7 +55,7 @@ hr {
 .menu-bar {
     display: flex;
     align-items: center;
-    padding: 10px;
+    justify-content: space-between;
     background-color: #2d2d2d;
     border-radius: 5px;
     width: 100%;
@@ -72,8 +64,12 @@ hr {
 .menu-item {
     margin: 0 10px;
     color: #ffffff;
-    cursor: pointer;   
 }
+
+.menu-item.first-item {
+    margin-right: auto;
+}
+
 .menu-title {
     flex-grow: 1;
     color: #ffffff;
@@ -86,6 +82,11 @@ hr {
     width: 10px;
     height: 10px;
 }
+
+.menu-item.panda-icon{
+    align-self: start;
+}
+
 #userInput {
     width: 100%;
     padding: 10px;
