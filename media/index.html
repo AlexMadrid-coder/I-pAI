@@ -6,6 +6,7 @@
         Esto hay que arreglarlo pq o pongo seguridad en la extensión o no va a funcionar
         <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-scr /media/img 'self' data:; style-src /media/main.css 'unsafe-inline'; script-src /media/main.js 'unsafe-inline' ;"> 
     -->
+    <meta http-equiv="Content-Securicy-Policy" content="img-src 'self' data:${iconsBaseURI}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
     <title>I-pAI</title>
@@ -22,23 +23,20 @@
                     botón limpiar convesación
             -->
             <div class="menu-bar">
-                <div class="menu-item">
-                    <span class="icon"><img src="${webview.asWebviewUri(vscode.joinPath(this._extension, 'media', 'img', 'panda-icon.png'))}" alt="panda-icon"></span>
+                <div class="menu-item"> <!-- Icono con panda y selección de LLE -->
+                    <span class="icon"><img src="${iconsBaseURI}/panda-icon-24.png" alt="panda-icon"></span>
                 </div>
-                <div class="menu-title">
-                    I-pAI + LLE
+                <div class="menu-item"> <!-- Nueva conversación -->
+                    <span class="icon"><img src="${iconsBaseURI}/plus-icon-24.png" alt="plus-icon"></span>  
                 </div>
-                <div class="menu-item">
-                    <span class="icon">+</span>  <!-- Nueva conversación -->
+                <div class="menu-item"> <!-- Ajustes-->
+                    <span class="icon"><img src="${iconsBaseURI}/settings-icon-24.png" alt="settings-icon"></span>  
                 </div>
-                <div class="menu-item">
-                    <span class="icon">⚙️</span>  <!-- Ajustes-->
+                <div class="menu-item">  <!-- Historial-->
+                    <span class="icon"><img src="${iconsBaseURI}/historial-icon-24.png" alt="Conversation history icon"></span>  
                 </div>
-                <div class="menu-item">
-                    <span class="icon">⏲️</span>  <!-- Historial-->
-                </div>
-                <div class="menu-item">
-                    <span class="icon">📋</span> <!-- Limpiar conversacion-->
+                <div class="menu-item"> <!-- Limpiar conversacion-->
+                    <span class="icon"><img src="${iconsBaseURI}/delete-conversation-icon-24.png" alt="Clean conversation icon"></span> 
                 </div>
             </div>
         </div>
