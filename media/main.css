@@ -58,6 +58,8 @@ p {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
     position: relative;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
 
 .action-button {
@@ -112,7 +114,7 @@ p {
     align-self: start;
 }
 
-#userInput {
+#ipai-sendText {
     width: 100%;
     padding: 10px;
     border: 1px solid #444;
@@ -121,6 +123,36 @@ p {
     text-align: left;
     color: #ffffff;
     box-sizing: border-box;
+    margin: 0;
+    resize: none;
+    overflow-y: auto;
+    max-height: calc(1.5em * 5 + 20px);
+    line-height: 1.5em;
+
+}
+
+#sendButton {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #444;
+    border-left: none;
+    background-color: #4e4e4e;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+#sendButton img {
+    width: 20px;
+    height: 20px;
+}
+
+#sendButton:hover {
+    background-color: #4da9d6;
 }
 
 /* Web responsive usando @media */
