@@ -3,6 +3,9 @@ body {
     color: #ffffff;
     background-color: #2d2d2d;
     padding: 20px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    box-sizing: border-box;
 }
 
 hr {
@@ -26,14 +29,35 @@ p {
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .block {
-    width: 100%;
+    width: 80%;
+    box-sizing: border-box;
+    
 }
 
 .block.large {
-    width: 80%;
+    margin: 20px 0;
+    padding: 20px;
+    width: 100%;
+    background-color: #3e3e3e;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    position: relative;
+    box-sizing: border-box;
+}
+
+.block.input-area{
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    background-color: #3e3e3e;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    position: relative;
+    box-sizing: border-box;
 }
 
 .action-button {
@@ -55,10 +79,11 @@ p {
 .menu-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     background-color: #2d2d2d;
     border-radius: 5px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .menu-item {
@@ -79,8 +104,8 @@ p {
 }
 
 .icon{
-    width: 10px;
-    height: 10px;
+    width: 24px;
+    height: 24px;
 }
 
 .menu-item.panda-icon{
@@ -95,4 +120,23 @@ p {
     background-color: #3e3e3e;
     text-align: left;
     color: #ffffff;
+    box-sizing: border-box;
+}
+
+/* Web responsive usando @media */
+@media (max-width: 768px) {
+    .block.large {
+        width: 100%;
+    }
+}
+@media (max-width: 480px) { 
+    h1 {
+        font-size: 1.5em;
+    }
+    h2 {
+        font-size: 1.2em;
+    }
+    p {
+        font-size: 0.8em;
+    }
 }
