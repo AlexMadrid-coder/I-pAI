@@ -126,7 +126,14 @@ p {
 }
 
 .user-query {
-    
+    margin: 20px 0;
+    padding: 20px;
+    width: 100%;
+    background-color: #3e3e3e;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    position: relative;
+    box-sizing: border-box;
 }
 
 #ipai-sendText {

@@ -16,7 +16,6 @@ document.getElementById('ipai-sendText').dispatchEvent(new Event('input'));
 document.getElementById('ipai-sendText').addEventListener('keydown', function (event) {
     if (event.key === 'Enter' && !event.shiftKey) {
         event.preventDefault();
-        console.log("Trigger Enter");
         ipai_ASK();
     }
 });
@@ -24,7 +23,6 @@ document.getElementById('ipai-sendText').addEventListener('keydown', function (e
  * Listener --> Botón de enviar del areatext
  */
 document.getElementById('ipai-sendButton').addEventListener('click', function() {
-    console.log("Trigger button");
     ipai_ASK();
 });
 // 
@@ -46,11 +44,12 @@ function ipai_ASK() {
     }
 
     // Creamos un nuevo div para la pregunta
-    const userInput = document.getElementById('ipai-sendText').textContent.trim();
+    const userInput = document.getElementById('ipai-sendText').value.trim();
+    console.log(userInput);
     if (userInput) {
         const newDiv = document.createElement('div');
         newDiv.id = 'user-query';
-        newDiv.className = 'block-query';
+        newDiv.className = 'user-query';
         newDiv.textContent = userInput;
         divsQuery.appendChild(newDiv);
 
