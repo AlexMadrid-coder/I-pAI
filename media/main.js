@@ -7,11 +7,16 @@ document.getElementById('ipai-sendText').addEventListener('input', function () {
     this.style.height = this.scrollHeight + 'px';   // Ajustamos la altura del textarea para el contenido 
 });
 /**
- * Listene -->'enter' en el textarea
+ * Inicializamos la altura por si tenía contenido preexistente
+ */
+document.getElementById('ipai-sendText').dispatchEvent(new Event('input'));
+/**
+ * Listener -->'enter' en el textarea
  */
 document.getElementById('ipai-sendText').addEventListener('keydown', function (event) {
     if (event.key === 'Enter' && !event.shiftKey) {
         event.preventDefault();
+        console.log("Trigger Enter");
         ipai_ASK();
     }
 });
@@ -19,6 +24,7 @@ document.getElementById('ipai-sendText').addEventListener('keydown', function (e
  * Listener --> Botón de enviar del areatext
  */
 document.getElementById('ipai-sendButton').addEventListener('click', function() {
+    console.log("Trigger button");
     ipai_ASK();
 });
 // 
@@ -32,7 +38,7 @@ function ipai_ASK() {
     // Sacamos la información del div que aloja todos los query
     const divsQuery = document.getElementById('block-query');
     // Ahora cogemos todos sus hijos ( preguntas y respuestas del LLE )
-    const childs = divsQuery.childs();
+    const childs = divsQuery.childs;
     // Ahora si tenemos el id 'ipai-div-initial' --> Eliminamos y mandamos pregunta
     const initialDiv = document.getElementById('ipai-div-initial');
     if (initialDiv) {
@@ -40,11 +46,11 @@ function ipai_ASK() {
     }
 
     // Creamos un nuevo div para la pregunta
-    const userInput = document.getElementById('ipai-sendText').ariaValueMax.trim();
+    const userInput = document.getElementById('ipai-sendText').textContent.trim();
     if (userInput) {
         const newDiv = document.createElement('div');
         newDiv.id = 'user-query';
-        newDiv.className = 'user-query';
+        newDiv.className = 'block-query';
         newDiv.textContent = userInput;
         divsQuery.appendChild(newDiv);
 

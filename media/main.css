@@ -141,6 +141,7 @@ p {
     margin: 0;
     resize: none;
     overflow-y: auto;
+    overflow-x: none;
     max-height: calc(1.5em * 5 + 20px);
     line-height: 1.5em;
 
@@ -152,7 +153,6 @@ p {
     border: 1px solid #444;
     border-left: none;
     background-color: #4e4e4e;
-    color: #fff;
     cursor: pointer;
     border-radius: 0 4px 4px 0;
     display: flex;
