@@ -26,22 +26,24 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 				// Configuramos permisos para la carga de recursos locales
 				localResourceRoots: 
 				[
-					vscode.Uri.joinPath(this._extensionUri, 'media'), 
+					vscode.Uri.joinPath(this._extensionUri, 'src', 'webview'), 
 				],
 			
 			};
 
 			// Configuramos el contenido del webview
-			const indexPath = vscode.Uri.joinPath(this._extensionUri, 'media', 'index.html');
+			const indexPath = vscode.Uri.joinPath(this._extensionUri, 'src', 'webview', 'index.html');
 			let html = fs.readFileSync(indexPath.fsPath, 'utf-8');
-			// Sacamos las URI para los CSS, JS e imagenes
-			const scriptURI = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'main.js'));
-			const styleURI 	= webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'main.css'));
-			const iconsBaseURI = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media','img'));
+			// Sacamos las URI verdaderas para los fichero .html, .css, .js y ñas imágenes
+			const htmlBaseURI = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'src', 'webview', 'html'));
+			const jsBaseURI = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'src', 'webview', 'js'));
+			const cssBaseURI 	= webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'src', 'webview', 'css'));
+			const iconsBaseURI = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'src', 'webview', 'media', 'img'));
 			// Reemplazamos para tener las URI correctas
-        	html = html.replace(/<script\s+src="main.js"><\/script>/, `<script src="${scriptURI}"></script>`);
-			html = html.replace(/<link\s+rel="stylesheet"\s+href="main.css">/, `<link rel="stylesheet" href="${styleURI}">`);
-			html = html.replace(/\${iconsBaseURI}/g, `${iconsBaseURI}`);
+			// Este código cambia todas las instancias con la URI correcta para que el servidor pueda direccionar bien los fichero css, js y html
+			html = html.replace(/\${jsBaseURI}/g, 		`${jsBaseURI}/`);
+			html = html.replace(/\${cssBaseURI}/g, 		`${cssBaseURI}/`);
+			html = html.replace(/\${iconsBaseURI}/g, 	`${iconsBaseURI}/`);
 			webviewView.webview.html = html;
 		}
 }
