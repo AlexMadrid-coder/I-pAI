@@ -34,8 +34,7 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 			// Configuramos el contenido del webview
 			const indexPath = vscode.Uri.joinPath(this._extensionUri, 'src', 'webview', 'index.html');
 			let html = fs.readFileSync(indexPath.fsPath, 'utf-8');
-			// Sacamos las URI verdaderas para los fichero .html, .css, .js y ñas imágenes
-			const htmlBaseURI = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'src', 'webview', 'html'));
+			// Sacamos las URI verdaderas para los fichero .html, .css, .js y las imágenes
 			const jsBaseURI = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'src', 'webview', 'js'));
 			const cssBaseURI 	= webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'src', 'webview', 'css'));
 			const iconsBaseURI = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'src', 'webview', 'media', 'img'));
