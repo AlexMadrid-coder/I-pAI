@@ -68,6 +68,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "notebook": "^1.0.1"
   }
 }

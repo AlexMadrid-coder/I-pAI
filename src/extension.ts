@@ -4,17 +4,41 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+//
+/**
+ * 
+ * @param {vscode.ExtensionContext} context - Contexto de la pag. web 
+ */
 export function activate(context: vscode.ExtensionContext) {
-	const provider = new SidebarProvider(context.extensionUri);
+	const provider = new SidebarProvider(context.extensionUri); // Contenido arreglado de la pag. web
+	/**
+	 * En este apartado suscribimos a nuestra extension todas las opciones y funciones que necesitamos
+	 * 
+	 */
 	context.subscriptions.push(
-		vscode.window.registerWebviewViewProvider('ipai.mainContainer', provider)
+		vscode.window.registerWebviewViewProvider('ipai.mainContainer', provider) // Agregamos la pag. web al primary sidebar
 	);
 }
+/**
+ * Clase que crea el objeto pag. web que insertamos en la 'Primary Sidebar'
+ * 
+ * @class SidebarProvider 
+ */
 class SidebarProvider implements vscode.WebviewViewProvider{
+	/** 
+	 *  Crea la instancia SidebarProvider
+	 * 
+	 * @param {vscode.Uri} _extensionUri - Uri inicial de la pag. web que queremos usar 
+	 */
 	constructor(private readonly _extensionUri: vscode.Uri) {}
 
+	/**
+	 * Funcion que devuelve la URI real de las paginas con las direcciones de boostrap, css y js
+	 * 
+	 * @param {vscode.Webview} webviewView 					- Webview a utilizar con las configuraciones propias
+	 * @param {vscode.WebviewViewResolveContext} context 	- Contexto de la pag. web
+	 * @param {token} vscode.CancellationToken 				- Token de cancelacion para cerrar la pag. web
+	 */
 	public resolveWebviewView(
 		webviewView: vscode.WebviewView, 
 		context: vscode.WebviewViewResolveContext, 
@@ -49,5 +73,7 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 
 
 // This method is called when your extension is deactivated
-
+/**
+ * Funcion que desactiva la extension en vscode
+ */
 export function deactivate() {}
