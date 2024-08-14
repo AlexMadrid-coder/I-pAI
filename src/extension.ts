@@ -3,13 +3,12 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-
-//
 /**
  * 
  * @param {vscode.ExtensionContext} context - Contexto de la pag. web 
  */
 export function activate(context: vscode.ExtensionContext) {
+	//
 	const provider = new SidebarProvider(context.extensionUri); // Contenido arreglado de la pag. web
 	/**
 	 * En este apartado suscribimos a nuestra extension todas las opciones y funciones que necesitamos
@@ -22,7 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
 /**
  * Clase que crea el objeto pag. web que insertamos en la 'Primary Sidebar'
  * 
- * @class SidebarProvider 
+ * @class SidebarProvider 576
  */
 class SidebarProvider implements vscode.WebviewViewProvider{
 	/** 
@@ -31,7 +30,6 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 	 * @param {vscode.Uri} _extensionUri - Uri inicial de la pag. web que queremos usar 
 	 */
 	constructor(private readonly _extensionUri: vscode.Uri) {}
-
 	/**
 	 * Funcion que devuelve la URI real de las paginas con las direcciones de boostrap, css y js
 	 * 
@@ -71,6 +69,16 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 		}
 }
 
+/**
+ * 	Funci'on que parsea a JSON un fichero de formato 'utf-8'
+ * 
+ * @param {string} filePath - Direcci'on del fichero
+ * @returns {JSON} 			- Contenido en JSON del fichero
+ */
+function readNotebook (filePath: string): any {
+	const notebookContent = fs.readFileSync(filePath, 'utf-8');
+	return JSON.parse(notebookContent);
+}
 
 // This method is called when your extension is deactivated
 /**
