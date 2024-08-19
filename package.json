@@ -2,7 +2,7 @@
   "name": "ipai",
   "displayName": "I-pAI",
   "description": "An interactive vs-code extension for data treatment and visualization using PandasAI",
-  "icon": "src/webview/media/img/panda-icon.png",
+  "icon": "src/webview/media/img/pandasai-image.png",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.89.0"
@@ -31,7 +31,7 @@
         {
           "id": "ipai-viewContainer",
           "title": "I-pAI",
-          "icon": "src/webview/media/img/panda-icon.png"
+          "icon": "src/webview/media/img/pandasai-image.png"
         }
       ]
     },

@@ -1,196 +1,33 @@
-body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: #ffffff;
-    background-color: #2d2d2d;
-    padding: 20px;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    box-sizing: border-box;
-    width: 100%;
+:root {
+    --main-btn-color: #007bff;
+    --main-btn-color-hover: #0056b3;
+    --main-white: white;
+    --main-black: black;
 }
 
-hr {
-    width: 100%;
-    border: 0.5px solid #c7c7c7;
-    margin: 10px 0;
+.navbar-logo {
+    height: 36px;
+    width: 36px;
 }
-
-h1, h2 {
-    color: #61dafb;
-    margin-bottom: 10px;
+.intro-section{
+    font-size: 1.7rem;
+    line-height: 1.7;
+    margin-bottom: 30px;
 }
-
-p {
-    font-size: 1.2em;
+.btn-custom {
+    background-color: var(--main-btn-color);
+    color: var(--main-white);
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    text-transform: uppercase;
 }
-
-.container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    box-sizing: border-box;
+.btn-custom:hover{
+    background: var(--main-btn-color-hover);
 }
-
-.block {
-    width: 80%;
-    box-sizing: border-box;
-    
-}
-
-.block.large {
-    margin: 20px 0;
-    padding: 20px;
-    width: 100%;
-    background-color: #3e3e3e;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-    position: relative;
-    box-sizing: border-box;
-}
-
-.block.input-area{
-    margin: 10px 0;
-    padding: 10px;
-    width: 100%;
-    background-color: #3e3e3e;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-    position: relative;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-}
-
-.action-button {
-    display: block;
-    width: 100%;
-    padding: 2px;
-    margin: 5px 0;
-    background-color: #3e3e3e;
-    color: #61dafb;
-    border: none;
-    text-align: left;
-    cursor: pointer;
-}
-
-.action-button:hover {
-    background-color: #505050;
-}
-
-.menu-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background-color: #2d2d2d;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.menu-item {
-    margin: 0 10px;
-    color: #ffffff;
-}
-
-.menu-item.first-item {
-    margin-right: auto;
-}
-
-.menu-title {
-    flex-grow: 1;
-    color: #ffffff;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-}
-
-.icon{
-    width: 24px;
-    height: 24px;
-}
-
-.menu-item.panda-icon{
-    align-self: start;
-}
-
-.item-block-option {
-    width: 100%;
-    padding: 2px;
-    border: 1px solid #444;
-    border-radius: 2px;
-    background-color: 4e4e4e;
-    text-align: left;
-    color: #ffffff;
-}
-
-.user-query {
-    margin: 20px 0;
-    padding: 20px;
-    width: 100%;
-    background-color: #3e3e3e;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-    position: relative;
-    box-sizing: border-box;
-}
-
-#ipai-sendText {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #444;
-    border-radius: 4px;
-    background-color: #3e3e3e;
-    text-align: left;
-    color: #ffffff;
-    box-sizing: border-box;
+body{
+    background-color: var(--main-black);
+    color: white;
     margin: 0;
-    resize: none;
-    overflow-y: auto;
-    overflow-x: none;
-    max-height: calc(1.5em * 5 + 20px);
-    line-height: 1.5em;
-
-}
-
-#sendButton {
-    width: 40px;
-    height: 40px;
-    border: 1px solid #444;
-    border-left: none;
-    background-color: #4e4e4e;
-    cursor: pointer;
-    border-radius: 0 4px 4px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 0;
-}
-
-#sendButton img {
-    width: 20px;
-    height: 20px;
-}
-
-#sendButton:hover {
-    background-color: #4da9d6;
-}
-
-/* Web responsive usando @media */
-@media (max-width: 768px) {
-    .block.large {
-        width: 100%;
-    }
-}
-@media (max-width: 480px) { 
-    h1 {
-        font-size: 1.5em;
-    }
-    h2 {
-        font-size: 1.2em;
-    }
-    p {
-        font-size: 1em;
-    }
 }
