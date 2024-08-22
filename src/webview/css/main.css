@@ -3,6 +3,7 @@
     --main-btn-color-hover: #0056b3;
     --main-white: white;
     --main-black: black;
+    --main-grey: #212529;
 }
 
 .navbar-logo {
@@ -26,8 +27,15 @@
     background: var(--main-btn-color-hover);
 }
 body{
-    background-color: var(--main-black);
+    background-color: var(--main-grey);
     color: white;
     margin: 0;
     padding: 0;
+}
+.square{
+    background-color: var(--main-black);
+    border: 1px solid var(--main-btn-color);
+    padding: 10px;
+    text-align: center;
+    border-radius: 15px;
 }
