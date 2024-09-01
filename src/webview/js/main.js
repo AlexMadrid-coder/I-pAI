@@ -1,4 +1,8 @@
 
+
+/**
+ * Listener para la navegaci'on entre pestanyas
+ */
 document.addEventListener("DOMContentLoaded", function() {
     // Get all the nav-link buttons
     const navLinks = document.querySelectorAll('.nav-link');

@@ -3,11 +3,15 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
+// Variable global para almacenar el contexto de la extensi'on
+let extensionContext: vscode.ExtensionContext;
 /**
  * 
  * @param {vscode.ExtensionContext} context - Contexto de la pag. web 
  */
 export function activate(context: vscode.ExtensionContext) {
+	// guardamos el contexto en la variable global
+	extensionContext = context;
 	//
 	const provider = new SidebarProvider(context.extensionUri); // Contenido arreglado de la pag. web
 	/**
@@ -66,18 +70,27 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 			html = html.replace(/\${cssBaseURI}/g, 		`${cssBaseURI}/`);
 			html = html.replace(/\${iconsBaseURI}/g, 	`${iconsBaseURI}/`);
 			webviewView.webview.html = html;
+			/**
+			 * Este apartado del c'odigo hace referencia a la comunicaci'on entre el typescript (vscode) y la p'agina web incrustada de la extension (javascript)
+			 */
+			webviewView.webview.onDidReceiveMessage(
+				message => {
+					switch (message.command) {
+						case 'guardarClave':
+							extensionContext.globalState.update('claveAPI', message.clave);
+							vscode.window.showInformationMessage('Clave API guardada correctamente.');
+							break;
+						case 'obtenerClave':
+							const clave = extensionContext.globalState.get('claveAPI');
+							webviewView.webview.postMessage({command: 'claveAPI', clave});
+							break;
+						
+					}
+				},
+				undefined,
+				extensionContext.subscriptions
+			);
 		}
-}
-
-/**
- * 	Funci'on que parsea a JSON un fichero de formato 'utf-8'
- * 
- * @param {string} filePath - Direcci'on del fichero
- * @returns {JSON} 			- Contenido en JSON del fichero
- */
-function readNotebook (filePath: string): any {
-	const notebookContent = fs.readFileSync(filePath, 'utf-8');
-	return JSON.parse(notebookContent);
 }
 
 // This method is called when your extension is deactivated
