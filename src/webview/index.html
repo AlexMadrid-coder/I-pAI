@@ -10,7 +10,6 @@
     <title>I-pAI</title>
 </head>
 <body>
-    
     <div>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -54,13 +53,13 @@
                 <div class="square mb-3"> <!-- Div con la cabecera -->
                     <h2>Gracias por elegir I-pAI</h2>
                 </div>
-    
+
                 <hr class="border border-primary border-1 opacity-75">
 
                 <div class="square mb-3"> <!-- Div con texto 1 -->
                     <p>Con esta extensión podrás agilizar el trabajo inicial y el primer preprocesado de datos</p>
                 </div>
-    
+                
                 <div class="row mb-3"> <!-- Div con dos cajas -->
                     <div class="col-md-6"> <!-- Div caja izquierda -->
                         <div class="square"><p>Para saber más consulta la pestaña de <a href="#">Ayuda</a></p></div>
@@ -97,11 +96,11 @@
 
                 <hr class="border border-primary border-1 opacity-75">
 
+                <!-- Box para guardar la clave API -->
                 <div class="row mb-3"> <!-- Div con dos cajas -->
                     <div class="col-md-6"> <!-- Div caja izquierda -->
                         <div class="square"><p>Guarda aquí tu clave de PandasAI para poder hacer las consultas</p></div>
                     </div>
-
                     <div class="col-md-6"> <!-- Div caja derecha -->
                         <div class="square">
                             <div class="input-group mb-3">
@@ -112,7 +111,17 @@
                         </div>
                     </div>
                 </div>
-
+                <!-- Box para seleccionar el Idioma  -->
+                <div class="square mb-3">
+                    <div class="form-group">
+                        <label for="selectorLenguaje" id="labelLenguaje" class="form-label">Selecciona tu idioma:</label>
+                        <select name="" id="selectorLenguaje" class="form-select" aria-label="Selector de idioma">
+                            <option value="es" selected>Español</option>
+                            <option value="en">Inglés</option>
+                            <option value="ca">Catalán</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
     
