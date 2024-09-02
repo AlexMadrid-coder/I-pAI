@@ -1,5 +1,3 @@
-const { event } = require("jquery");
-
 /**
  * Hacemos la funci'on de comunicaci'on de esta manera para tener ya cargada la extensi'on para tener la posibilidad de comunicarnos
  */
