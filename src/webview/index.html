@@ -78,7 +78,37 @@
     
         <!-- Sección chat -->
         <div class="tab-pane fade" id="section-chat-tab-pane" role="tabpanel" aria-labelledby="section-chat-tab" tabindex="0">
-            <h1>chat</h1>
+            <div class="container my-4">
+                <div class="square mb-3">
+                    <h2>Chat</h2>
+                </div>
+
+                <hr class="border border-primary border-1 opacity-75">
+
+                <div id="chat-zone"> <!-- Zona de chat de la aplicación -->
+                    <div class="square">
+                        <p>Para comenzar a trabajar sube tu dataset y comenzaremos la ronda de preguntas.</p>
+                        <p>Encontrarás el botón para subir tu archivo en el recuadro inferior junto al botón de enviar.</p>
+                    </div>
+                </div>
+
+                <div> <!-- Zona con la input box de text y los botones  de enviar y subir -->
+                    <div class="container square mt-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <!-- Input de texto para el prompt -->
+                                    <textarea class="form-control" placeholder="Escribe tu mensaje..." id="chat-input"></textarea>
+                                    <!-- Botón para enviar el mensaje -->
+                                    <button class="btn btn-primary" type="button" id="send-btn">Enviar</button>
+                                    <!-- Botón para subir archivos -->
+                                    <input type="file" class="btn btn-outline-secondary" id="upload-btn"> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     
         <!-- Sección modelos-->

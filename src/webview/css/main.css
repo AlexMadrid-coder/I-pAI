@@ -39,3 +39,14 @@ body{
     text-align: center;
     border-radius: 15px;
 }
+.input-group{
+    margin-bottom: 20px;
+}
+
+
+#chat-input{
+    resize: none;
+    overflow-y: auto;
+    max-height: calc(1.5em * 5);
+    transition: height 0.2s ease;
+}

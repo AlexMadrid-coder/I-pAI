@@ -1,5 +1,3 @@
-
-
 /**
  * Listener para la navegaci'on entre pestanyas
  */
@@ -30,3 +28,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+
+document.getElementById('chat-input').addEventListener('input', function() {
+    const chatInput = document.getElementById('chat-input');
+    // Una vez sacado --> Lo modificamos
+    chatInput.style.height = 'auto';
+    chatInput.style.height = chatInput.scrollHeight + 'px';
+});
+
+// TODO: Cambiar la apariencia del botón de subir ficheros
