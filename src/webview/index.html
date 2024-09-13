@@ -86,7 +86,7 @@
                 <hr class="border border-primary border-1 opacity-75">
 
                 <div id="chat-zone"> <!-- Zona de chat de la aplicación -->
-                    <div class="square">
+                    <div class="square" id="chat-zone-init">
                         <p>Para comenzar a trabajar sube tu dataset y comenzaremos la ronda de preguntas.</p>
                         <p>Encontrarás el botón para subir tu archivo en el recuadro inferior junto al botón de enviar.</p>
                     </div>
@@ -96,13 +96,19 @@
                     <div class="container square mt-5">
                         <div class="row justify-content-center">
                             <div class="col-md-6">
-                                <div class="input-group">
-                                    <!-- Input de texto para el prompt -->
-                                    <textarea class="form-control" placeholder="Escribe tu mensaje..." id="chat-input"></textarea>
-                                    <!-- Botón para enviar el mensaje -->
+                                <!--  Textarea expande 5 líneas -->
+                                <div class="mb-3">
+                                    <textarea id="chat-input" class="form-control" placeholder="Escribe tu mensaje..." rows="1"></textarea>
+                                </div>
+                                <!-- Fila de botones -->
+                                <div class="d-flex justify-content-between">
+                                    <!-- Botón para enviar prompt -->
                                     <button class="btn btn-primary" type="button" id="send-btn">Enviar</button>
-                                    <!-- Botón para subir archivos -->
-                                    <input type="file" class="btn btn-outline-secondary" id="upload-btn"> 
+
+                                    <!-- Botón personalizado para subir los archivos -->
+                                    <button id="custom-upload-btn">Subir Archivo</button>
+                                    <!-- Input oculto de archivos -->
+                                    <input type="file" id="upload-btn">
                                 </div>
                             </div>
                         </div>

@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     vscode.postMessage({command: 'obtenerClave'});
     /**
-     * 
+     * Aquí tenemos la lógica de la recepción de mensajes del TypeScript
      */
     window.addEventListener('message', event => {
         const message = event.data;
