@@ -66,3 +66,13 @@ body{
 #custom-upload-btn:hover {
     background-color: #5a6268;
 }
+
+/* Botón en estado de eliminar */
+#custom-upload-btn.remove-mode {
+    background-color: red;
+}
+
+/* Hover para el botón en estado de eliminar */
+#custom-upload-btn.remove-mode:hover {
+    background-color: darkred;
+}

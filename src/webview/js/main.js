@@ -1,3 +1,6 @@
+// Variables globales para la gestión de la lógica del programa
+let fileUploaded = false;
+
 /**
  * Listener para la navegaci'on entre pestanyas
  */
@@ -37,11 +40,32 @@ document.getElementById('chat-input').addEventListener('input', function() {
     chatInput.style.height = chatInput.scrollHeight + 'px';
 });
 
-/** Cambiamos la apariencia del botón de subir ficheros y hacemos un trigger del verdadero botón que hemos ocultado */
+/** Cambiamos la apariencia del botón de subir ficheros y hacemos un trigger del verdadero botón que hemos ocultado 
+ * 
+ * Además vamos a cambiar la apariencia del botón y su funcionalidad cuando se active el trigger para poder eliminar el fichero subido
+*/
 document.getElementById('custom-upload-btn').addEventListener('click', function() {
     const btn =         document.getElementById('upload-btn');
-    // Ahora cuando hacemos click en el botón falso activamos el trigger del verdadero botón
-    btn.click(); // Aparecerá la ventana de subir el archivo y simplemente queda subir algo.
+    // Ahora aplicamos la lógica del botón con la variable declarada
+    if (fileUploaded) { // Caso ya tenemos un fichero subido
+        document.getElementById('upload-btn').value = ''; // Eliminamos el fichero
+        document.getElementById('custom-upload-btn').textContent = 'Subir Archivo'; // Restauramos el texto original
+        document.getElementById('custom-upload-btn').classList.remove('remove-mode'); // Restauramos el color normal
+        fileUploaded = false;
+    }
+    else {
+        // Si no tenemos fichero cargado abrimos el selector
+        btn.click();
+    }
+});
+// Ahora tenemos que crear un trigger para cuando seleccionamos el fichero
+document.getElementById('upload-btn').addEventListener('change', function() {
+    if (document.getElementById('upload-btn').files.length > 0) {
+        // Cuando seleccionamos un fichero
+        document.getElementById('custom-upload-btn').textContent = 'Eliminar fichero'; // cambiamos el texto del botón
+        document.getElementById('custom-upload-btn').classList.add('remove-mode'); // Cambiamos el formato del botón
+        fileUploaded = true;
+    }
 });
 
 // Vamos a crear la funcionalidad para generar nuevos cuadrados cuando realizamos preguntas y respuestas
