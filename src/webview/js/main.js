@@ -97,6 +97,9 @@ function addMessage() {
         // Limpiamos el textArea 
         document.getElementById('chat-input').value = "";
         document.getElementById('chat-input').style.height = 'auto';
+        
+        // Ahora realizamos la llamada a la funci'on que va a mandar tanto el fichero como la consulta al typescript para ejecutar la consulta a PandasAI
+        
     }
 }
 /**

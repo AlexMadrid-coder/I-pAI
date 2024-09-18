@@ -84,6 +84,9 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 							const clave = extensionContext.globalState.get('claveAPI');
 							webviewView.webview.postMessage({command: 'claveAPI', clave});
 							break;
+						case 'realizarConsulta':
+							
+							break;
 						
 					}
 				},
