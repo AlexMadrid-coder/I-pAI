@@ -1,3 +1,6 @@
+import { addMessage } from './main.js';
+
+//
 const vscode = acquireVsCodeApi(); // Con esto creamos el flujo vscode-webview
 
 /**
@@ -27,36 +30,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
-/**
- * Vamos a hacer el trigger al bot'on de enviar para que recoja las cosas y las mande al typescript para procesarlo en python-PandasAI
- */
-document.getElementById('upload-btn').addEventListener('change', function() {
-    // Una vez disparado vamos a realizar la misma comprobaci'on que el otro disparador
+// Vamos a declarar una función que hará todo lo que necesitamos para recoger y enviar al TypeScript
+function comunicacion() {
+    // Lo primero que vamos a sacar es si hemos subido o no fichero
     const fichero = document.getElementById('upload-btn').files[0];
+    // También tenemos que sacar el texto para la consulta
     const consulta = document.getElementById('chat-input').value.trim();
-    // Ahora hacemos las comprobaciones
+    // Realizamos las comprobaciones
     if (consulta === "") {
-        alert("Necesitamos una consulta para consultar");
+        vscode.postMessage({command: "error-NoConsulta"});
         return;
     }
-    if (!file) { alert("No has subido ning'un archivo!!"); return; }
-
-    // Lee el fichero como ArrayBuffer
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        const arrayBuffer = event.target.result;
-
-        // Enviamos la consulta al backend
-
-    };
-    // Ahora creamos la estructura a enviar
-    const messageData = {
-        command: 'realizarConsulta',
-        query: consulta,
-        fileName: fichero.name,
-        fileContent: null
-    };
-
-    // Ahora vamos a leer el fichero para enviarlo
+    if (!fichero) {
+        vscode.postMessage({command: "error-NoFichero"});
+        return;
+    }
+    // Ahora tenemos que enviar al TypeScript la constulta y el fichero
+}
+/**
+ * En estos listener vamos a gestionar el funcionamiento principal de la interacción JavaScript-TypeScript
+ */
+document.getElementById('send-btn').addEventListener('click', function(){
+    comunicacion();
+});
+document.getElementById('chat-input').addEventListener('keydown', function(event){
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        comunicacion();
+    }
 });

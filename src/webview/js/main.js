@@ -102,16 +102,5 @@ function addMessage() {
         
     }
 }
-/**
- * Listener para cuando tocamos el botón de enviar
- */
-document.getElementById('send-btn').addEventListener('click', addMessage);
-/**
- * Listener para cuando presionamos el botón enter pero no combinado con shift
- */
-document.getElementById('chat-input').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        addMessage;
-    }
-});
+// Exportamos la función para el fichero de comunicación
+export { addMessage }; 

@@ -84,8 +84,11 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 							const clave = extensionContext.globalState.get('claveAPI');
 							webviewView.webview.postMessage({command: 'claveAPI', clave});
 							break;
-						case 'realizarConsulta':
-							
+						case 'error-NoConsulta':
+							vscode.window.showWarningMessage("Sin consulta no podemos trabajar");
+							break;
+						case 'error-NoFichero':
+							vscode.window.showWarningMessage("Sin fichero no podemos trabajar correctamente");
 							break;
 						
 					}
