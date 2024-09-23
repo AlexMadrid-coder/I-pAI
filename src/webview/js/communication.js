@@ -1,4 +1,4 @@
-import { addMessage } from './main.js';
+import { addMessage } from './main.js'; 
 
 //
 const vscode = acquireVsCodeApi(); // Con esto creamos el flujo vscode-webview
@@ -56,6 +56,7 @@ function comunicacion() {
 /**
  * En estos listener vamos a gestionar el funcionamiento principal de la interacción JavaScript-TypeScript
  */
+
 document.getElementById('send-btn').addEventListener('click', function(){
     comunicacion();
 });

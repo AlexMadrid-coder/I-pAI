@@ -102,5 +102,14 @@ function addMessage() {
         
     }
 }
-// Exportamos la función para el fichero de comunicación
-export { addMessage }; 
+
+//  Listener para el botón de enviar y que esté desactivado cuanod no tenga texto
+document.getElementById('chat-input').addEventListener('input', function() {
+    if (document.getElementById('send-btn').textContent.trim() !== "") {
+        document.getElementById('send-btn').disabled = false;
+    }
+    else {
+        document.getElementById('send-btn').disabled = true;
+    }
+});
+
