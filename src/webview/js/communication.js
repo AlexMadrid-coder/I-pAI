@@ -34,15 +34,21 @@ document.addEventListener('DOMContentLoaded', function() {
 function comunicacion() {
     // Lo primero que vamos a sacar es si hemos subido o no fichero
     const fichero = document.getElementById('upload-btn').files[0];
+    const permitidas = ['xls', 'xlsx', 'csv', 'json'];
+    const extension = fichero.name.split(".").pop().toLowerCase();
     // También tenemos que sacar el texto para la consulta
     const consulta = document.getElementById('chat-input').value.trim();
     // Realizamos las comprobaciones
-    if (consulta === "") {
+    if (consulta === "") { // Si no tenemos consulta
         vscode.postMessage({command: "error-NoConsulta"});
         return;
     }
-    if (!fichero) {
+    if (!fichero) { // Si no hemos subido fichero
         vscode.postMessage({command: "error-NoFichero"});
+        return;
+    }
+    if (!permitidas.includes(extension)) { // Si el formato del fichero es incorrecto
+        vscode.postMessage({command: "error-FormatoIncorrecto", error: extension});
         return;
     }
     // Ahora tenemos que enviar al TypeScript la constulta y el fichero

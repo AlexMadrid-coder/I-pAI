@@ -90,6 +90,9 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 						case 'error-NoFichero':
 							vscode.window.showWarningMessage("Sin fichero no podemos trabajar correctamente");
 							break;
+						case 'error-FormatoIncorrecto':
+							vscode.window.showWarningMessage("Extensión " + message.error + " incorrecto");
+							break;
 						
 					}
 				},
