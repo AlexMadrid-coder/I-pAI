@@ -2,7 +2,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-
+import { spawn } from 'child_process';
 /**
  * Declaración de variables globales
  */
@@ -111,6 +111,13 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 						case 'error-FormatoIncorrecto': // Gestión de error --> El formato del fichero es incorrecto
 							vscode.window.showWarningMessage("Extensión " + message.error + " incorrecto");
 							break;
+						case 'ipai-consulta': // Caso principal de la extensión --> Hacer la consulta
+							const nombre = message.nombre;
+							const extension = message.extension;
+							const consulta = message.consulta;
+							const contenido = message.fileContent.split(','[1]);
+							
+							break;
 						
 					}
 				},
@@ -119,7 +126,18 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 			);
 		}
 }
+/**
+ * FUNCTION executePython
+ * 
+ * Funcionamiento principal de la gestión TS-Python
+ * 
+ * 1. Creamos el child_process de Python y le pasamos los argumentos correctos
+ * 2. Esperamos a que devuelva el contenido el proceso
+ * 3. Matamos el proceso 
+ */
+function executePython() {
 
+}
 /**
  * Función que desactiva la extensión cuando el propio Visual Studio Code lo necesita
  */

@@ -66,7 +66,21 @@ function comunicacion() {
         vscode.postMessage({command: "error-FormatoIncorrecto", error: extension});
         return;
     }
-    // Ahora tenemos que enviar al TypeScript la constulta y el fichero
+    // Vamos a preparar el fichero y enviarlo al TS
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const fileContent  = event.target.result;
+        // Una vez preparado creamos el mensaje y lo mandamos
+        mensaje = { // Estructura mensaje que vamos a enviar al TS
+            command: 'ipai-consulta',
+            fichero: fileContent,
+            nombre: fichero.name,
+            extension: extension,
+            consulta: consulta
+        };
+        vscode.postMessage(mensaje);
+    };
+    reader.readAsDataURL(fichero);
 }
 /**
  * TRIGGER --> send-btn
