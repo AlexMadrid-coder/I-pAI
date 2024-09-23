@@ -1,16 +1,21 @@
 // The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-// Variable global para almacenar el contexto de la extensi'on
-let extensionContext: vscode.ExtensionContext;
+
 /**
+ * Declaración de variables globales
+ */
+let extensionContext: vscode.ExtensionContext; // Contexto que usamos para la gestión de la comunicación entre JS-TS
+/**
+ * FUNCTION activate 
+ * 
+ * Motor principal de la extensión, es la encargada de hacer que funciones así como de poder incrustar la pág.web en la primary sidebar 
  * 
  * @param {vscode.ExtensionContext} context - Contexto de la pag. web 
  */
 export function activate(context: vscode.ExtensionContext) {
-	// guardamos el contexto en la variable global
+	// Guardamos el contexto de la extensión en el de la API de vscode para poder comunicarnos
 	extensionContext = context;
 	//
 	const provider = new SidebarProvider(context.extensionUri); // Contenido arreglado de la pag. web
@@ -23,9 +28,9 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 }
 /**
- * Clase que crea el objeto pag. web que insertamos en la 'Primary Sidebar'
+ * CLASS SidebarProvider
  * 
- * @class SidebarProvider 576
+ * esta clase es la implementación del WebViewProvider que nos permite incrustar una página web en la primary sidebar
  */
 class SidebarProvider implements vscode.WebviewViewProvider{
 	/** 
@@ -47,50 +52,63 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 		token: vscode.CancellationToken)
 		{
 			webviewView.webview.options = {
-				// Permitimos le ejecución de scripts de la vista
+				/**
+				 * Permitimos el uso de Scripts únicamente desde las fuentes permitidas
+				 */
 				enableScripts: true,
-				// Configuramos permisos para la carga de recursos locales
+				/**
+				 * Configuramos los recursos ejecutables de nuestra extensión
+				 * 
+				 * 		En mi caso únicamente voy a permitir usar lo que tenga en la carpeta interna de recursos de la extensión
+				 */
 				localResourceRoots: 
 				[
 					vscode.Uri.joinPath(this._extensionUri, 'src', 'webview'), 
 				],
-			
 			};
-
-			// Configuramos el contenido del webview
+			/**
+			 * Configuramos la página principal del WebView de nuestra extensión
+			 */
 			const indexPath = vscode.Uri.joinPath(this._extensionUri, 'src', 'webview', 'index.html');
 			let html = fs.readFileSync(indexPath.fsPath, 'utf-8');
-			// Sacamos las URI verdaderas para los fichero .html, .css, .js y las imágenes
+			/**
+			 * Sacamos las URI verdaderas
+			 * 
+			 * 		jsBaseURI es donde tenemos los recursos JavaScript de la extensión
+			 * 		cssBaseURI es donde tenemos los recursos CSS de la extensión
+			 * 		iconsBaseURI es donde tenemos los recursos audiovisuales de la extensión
+			 */
 			const jsBaseURI = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'src', 'webview', 'js'));
 			const cssBaseURI 	= webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'src', 'webview', 'css'));
 			const iconsBaseURI = webviewView.webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'src', 'webview', 'media', 'img'));
-			// Reemplazamos para tener las URI correctas
-			// Este código cambia todas las instancias con la URI correcta para que el servidor pueda direccionar bien los fichero css, js y html
+			/**
+			 * Cambiamos todas las URI por las correctas usando expresiones regulares
+			 */
 			html = html.replace(/\${jsBaseURI}/g, 		`${jsBaseURI}/`);
 			html = html.replace(/\${cssBaseURI}/g, 		`${cssBaseURI}/`);
 			html = html.replace(/\${iconsBaseURI}/g, 	`${iconsBaseURI}/`);
 			webviewView.webview.html = html;
 			/**
-			 * Este apartado del c'odigo hace referencia a la comunicaci'on entre el typescript (vscode) y la p'agina web incrustada de la extension (javascript)
+			 * Gestión de mensajes JS-TS
 			 */
 			webviewView.webview.onDidReceiveMessage(
 				message => {
 					switch (message.command) {
-						case 'guardarClave':
+						case 'guardarClave': // Guardamos la clave en la memoria de la extensión
 							extensionContext.globalState.update('claveAPI', message.clave);
 							vscode.window.showInformationMessage('Clave API guardada correctamente.');
 							break;
-						case 'obtenerClave':
+						case 'obtenerClave': // Devolvemos al JS la clave de la memoria
 							const clave = extensionContext.globalState.get('claveAPI');
 							webviewView.webview.postMessage({command: 'claveAPI', clave});
 							break;
-						case 'error-NoConsulta':
+						case 'error-NoConsulta': // Gestión de error --> No hemos subido consulta
 							vscode.window.showWarningMessage("Sin consulta no podemos trabajar");
 							break;
-						case 'error-NoFichero':
+						case 'error-NoFichero': // Gestión de error --> No hemos subido fichero
 							vscode.window.showWarningMessage("Sin fichero no podemos trabajar correctamente");
 							break;
-						case 'error-FormatoIncorrecto':
+						case 'error-FormatoIncorrecto': // Gestión de error --> El formato del fichero es incorrecto
 							vscode.window.showWarningMessage("Extensión " + message.error + " incorrecto");
 							break;
 						
@@ -102,8 +120,7 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 		}
 }
 
-// This method is called when your extension is deactivated
 /**
- * Funcion que desactiva la extension en vscode
+ * Función que desactiva la extensión cuando el propio Visual Studio Code lo necesita
  */
 export function deactivate() {}

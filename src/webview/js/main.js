@@ -2,7 +2,9 @@
 let fileUploaded = false;
 
 /**
- * Listener para la navegaci'on entre pestanyas
+ * TRIGGER --> Nav-Links
+ * 
+ * Crea la navegabilidad entre las diferentes pestañas de la extensión
  */
 document.addEventListener("DOMContentLoaded", function() {
     // Get all the nav-link buttons
@@ -31,19 +33,25 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
-
-
+/**
+ * TRIGGER --> chat-input
+ * 
+ * Hacemos que el textarea 'chat-input' se expanda verticalmente en vez de horizontalmente
+ */
 document.getElementById('chat-input').addEventListener('input', function() {
     const chatInput = document.getElementById('chat-input');
     // Una vez sacado --> Lo modificamos
     chatInput.style.height = 'auto';
     chatInput.style.height = chatInput.scrollHeight + 'px';
 });
-
-/** Cambiamos la apariencia del botón de subir ficheros y hacemos un trigger del verdadero botón que hemos ocultado 
+/**
+ * TRIGGER --> custom-upload-btn + upload-btn
  * 
- * Además vamos a cambiar la apariencia del botón y su funcionalidad cuando se active el trigger para poder eliminar el fichero subido
-*/
+ * Cambiamos la apariencia del botón para subir el fichero si lo tenemos o no
+ * 
+ *      Si fichero subido -->       Apariencia Eliminar Fichero
+ *      Si fichero no subido -->    Apariencia Subir Fichero
+ */
 document.getElementById('custom-upload-btn').addEventListener('click', function() {
     const btn =         document.getElementById('upload-btn');
     // Ahora aplicamos la lógica del botón con la variable declarada
@@ -58,7 +66,6 @@ document.getElementById('custom-upload-btn').addEventListener('click', function(
         btn.click();
     }
 });
-// Ahora tenemos que crear un trigger para cuando seleccionamos el fichero
 document.getElementById('upload-btn').addEventListener('change', function() {
     if (document.getElementById('upload-btn').files.length > 0) {
         // Cuando seleccionamos un fichero
@@ -67,10 +74,11 @@ document.getElementById('upload-btn').addEventListener('change', function() {
         fileUploaded = true;
     }
 });
-
-// Vamos a crear la funcionalidad para generar nuevos cuadrados cuando realizamos preguntas y respuestas
 /**
- * Función que crea el div con el prompt pregunta a nuestro chatbot
+ * FUNCTION addMessage()
+ * 
+ * Recoge los datos del prompt consulta y crea un div en 'chat-input' con el contenido de la consulta
+ * Exportamos la función para poder usarla desde el fichero de comunicación pero la definimos aquí para tener un código más estruturado y organizado
  */
  export function addMessage() {
     // Aquí vamos a añadir una condición por si existe el 'square' inicial tenemos que eliminarlo por estética
@@ -102,8 +110,11 @@ document.getElementById('upload-btn').addEventListener('change', function() {
         
     }
 }
-
-//  Listener para el botón de enviar y que esté desactivado cuanod no tenga texto
+/**
+ * TRIGGER --> chat-input
+ * 
+ * Inhabilitamos el botón de enviar consulta si no tenemos nada escrito en el textarea de consulta
+ */
 document.getElementById('chat-input').addEventListener('input', function() {
     if (document.getElementById('send-btn').textContent.trim() !== "") {
         document.getElementById('send-btn').disabled = false;
@@ -112,4 +123,3 @@ document.getElementById('chat-input').addEventListener('input', function() {
         document.getElementById('send-btn').disabled = true;
     }
 });
-
