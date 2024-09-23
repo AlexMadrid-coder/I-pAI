@@ -59,10 +59,12 @@ function comunicacion() {
 
 document.getElementById('send-btn').addEventListener('click', function(){
     comunicacion();
+    addMessage();
 });
 document.getElementById('chat-input').addEventListener('keydown', function(event){
     if (event.key === 'Enter') {
         event.preventDefault();
         comunicacion();
+        addMessage();
     }
 });

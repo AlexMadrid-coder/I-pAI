@@ -72,7 +72,7 @@ document.getElementById('upload-btn').addEventListener('change', function() {
 /**
  * Función que crea el div con el prompt pregunta a nuestro chatbot
  */
-function addMessage() {
+ export function addMessage() {
     // Aquí vamos a añadir una condición por si existe el 'square' inicial tenemos que eliminarlo por estética
     if (document.getElementById('chat-zone-init')) {
         document.getElementById('chat-zone-init').remove();
