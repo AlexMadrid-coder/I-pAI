@@ -116,8 +116,36 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 							const extension = message.extension;
 							const consulta = message.consulta;
 							const contenido = message.fileContent.split(','[1]);
-							
-							break;
+							// Creamos un directorio temporal para guardar el fichero 
+							const tempDir = path.join(__dirname, 'temp');
+							if (!fs.existsSync(tempDir)) {
+								fs.mkdirSync(tempDir);
+							}
+							const filePath = path.join(tempDir, nombre);
+							// Ahora guardamos en el temporal el contenido del fichero
+							fs.writeFileSync(filePath, contenido);
+
+							// Ahora tenemos que crear el children_process de Python
+							try { // Ejecutamos el código python
+								const respuesta = executePython(filePath, consulta, extension);
+								// Separamos la respuesta en 'prompt-salida' y 'codigo-ejecutado'
+
+								// Devolvemos la estructura al JS
+							}
+							catch (error) { // Sacamos las excepciones
+								console.error("Error: No se ha podido ejecutar el código Python -> ", error);
+							}
+							finally { // Limpiamos el fichero cuando acabe 
+								fs.unlink(filePath, (err) => {
+									if (err) {
+										console.error("Error: No se ha eliminado el fichero temporal: ", err);
+									}
+									else {
+										console.log("Fichero temporal eliminado: ", err);
+									}
+								});
+							}
+ 							break;
 						
 					}
 				},
@@ -134,8 +162,14 @@ class SidebarProvider implements vscode.WebviewViewProvider{
  * 1. Creamos el child_process de Python y le pasamos los argumentos correctos
  * 2. Esperamos a que devuelva el contenido el proceso
  * 3. Matamos el proceso 
+ * 
+ * @param {string} filePath Path al fichero con el que vamos a trabajar
+ * @param {string} inputPrompt Contenido texto de la consulta
+ * @param {string} extension Extension que vamos a utilizar para el switch y abrir el flujo de trabajo
+ * 
+ * @return 
  */
-function executePython() {
+function executePython(filePath: string, inputPrompt: string, extension: string) {
 
 }
 /**
