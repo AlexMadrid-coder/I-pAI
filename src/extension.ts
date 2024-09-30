@@ -132,10 +132,12 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 							const filePath = path.join(tempDir, nombre);
 							// Ahora guardamos en el temporal el contenido del fichero
 							fs.writeFileSync(filePath, contenido);
+							// 
 
 							// Ahora tenemos que crear el children_process de Python
 							try { // Ejecutamos el código python
-								const respuesta = executePython(filePath, consulta, extension);
+								const claveAPI = extensionContext.globalState.get('claveAPI') as string;
+								const respuesta = executePython(filePath, consulta, extension, claveAPI);
 								// Separamos la respuesta en 'prompt-salida' y 'codigo-ejecutado'
 
 								// Devolvemos la estructura al JS
@@ -174,11 +176,16 @@ class SidebarProvider implements vscode.WebviewViewProvider{
  * @param {string} filePath Path al fichero con el que vamos a trabajar
  * @param {string} inputPrompt Contenido texto de la consulta
  * @param {string} extension Extension que vamos a utilizar para el switch y abrir el flujo de trabajo
+ * @param {string} claveAPI Clave API para generar la respuesta
  * 
- * @return 
+ * @return {Promise} Devolvemos si ha funcionado o no además de lo requerido
  */
-function executePython(filePath: string, inputPrompt: string, extension: string) {
+function executePython(filePath: string, inputPrompt: string, extension: string, claveAPI: string) {
+	return new Promise((resolve, reject) => {
+		// Creamos el proceso Python con los argumentos necesarios
+		const pythonProcess = spawn(interpretePytohn, [ficheroPython, inputPrompt, filePath, extension]);
 
+	});
 }
 /**
  * Función que desactiva la extensión cuando el propio Visual Studio Code lo necesita
