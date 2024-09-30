@@ -1,71 +1,139 @@
-# ipai README
+# I-pAI - Chatbot Inteligente con PandasAI
 
-This is the README for your extension "ipai". After writing up a brief description, we recommend including the following sections.
+## Descripción
 
-## Features
+**I-pAI** es una extensión de VS Code diseñada para ser una herramienta de análisis y procesamiento de datos usando Python, Pandas y PandasAI. Esta extensión permite cargar archivos de diversos formatos (Excel, CSV, JSON), realizar consultas sobre los datos a través de un script en Python y generar respuestas utilizando PandasAI. El objetivo principal de este proyecto es optimizar la interacción con grandes volúmenes de datos históricos o en tiempo real, facilitando su análisis mediante inteligencia artificial.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## Funcionalidades
 
-For example if there is an image subfolder under your extension project workspace:
+- **Cargar archivos de datos**: El usuario puede cargar archivos de diversos formatos (Excel, CSV, JSON) desde la interfaz web de la extensión, que serán procesados en el backend con un script en Python.
+- **Procesamiento de datos con Pandas**: El script en Python utiliza la biblioteca Pandas para gestionar y procesar los datos proporcionados.
+- **Integración con PandasAI**: El motor PandasAI permite generar respuestas automatizadas basadas en las consultas proporcionadas por el usuario sobre los datos cargados.
+- **Compatibilidad multiplataforma**: El proyecto es compatible tanto en Windows como en Linux gracias a la gestión de entornos virtuales separados para cada sistema operativo.
+- **Respuestas automáticas**: Se genera una respuesta a las consultas del usuario basada en los datos, así como el código utilizado por PandasAI para que el usuario pueda inspeccionar el proceso de creación de la respuesta.
 
-\!\[feature X\]\(images/feature-x.png\)
+## Requisitos del sistema
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- **Python 3.10.x** o superior.
+- **VS Code** con soporte para extensiones.
+- **Node.js y npm** (para el desarrollo y manejo de dependencias en la extensión).
+- **Entornos virtuales** para cada sistema operativo compatible (Linux y Windows).
+- **Librerías de Python**:
+  - Pandas
+  - PandasAI
+  - Openpyxl (para archivos Excel)
+  - json y csv (para formatos JSON y CSV)
+  
+### Dependencias
 
-## Requirements
+En el entorno de desarrollo se utilizan las siguientes herramientas:
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- **Backend (Python)**:
+  - Pandas
+  - PandasAI
+  - Openpyxl
+  - json y csv (manejo de archivos)
+  
+- **Frontend (JS y TypeScript)**:
+  - Módulo `child_process` para la ejecución de scripts Python.
+  - Comunicación con el backend mediante mensajes entre JavaScript y TypeScript.
 
-## Extension Settings
+## Instalación
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+### 1. Clonar el repositorio
 
-For example:
+Primero, clona este repositorio en tu máquina local:
 
-This extension contributes the following settings:
+```bash
+git clone https://github.com/tu-usuario/I-pAI.git
+cd I-pAI
+```
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+### 2. Configurar los entornos virtuales para Python
 
-## Known Issues
+Este proyecto utiliza entornos virtuales separados para Windows y Linux. Sigue las instrucciones para cada sistema operativo.
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+#### En Linux/macOS
 
-## Release Notes
+1. Instala `pyenv` y `pyenv-virtualenv` si aún no lo tienes:
+   ```bash
+   curl https://pyenv.run | bash
+   ```
+2. Crea el entorno virtual para Linux:
+   ```bash
+   pyenv virtualenv 3.10.x i-pai-linux
+   pyenv activate i-pai-linux
+   ```
+3. Instala las dependencias de Python:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Users appreciate release notes as you update your extension.
+#### En Windows
 
-### 1.0.0
+1. Instala `pyenv-win` y crea un entorno virtual:
+   ```bash
+   pyenv install 3.10.x
+   pyenv virtualenv 3.10.x i-pai-windows
+   pyenv activate i-pai-windows
+   ```
+2. Instala las dependencias de Python:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Initial release of ...
+### 3. Configuración de VS Code
 
-### 1.0.1
+1. Abre el proyecto en VS Code:
+   ```bash
+   code .
+   ```
 
-Fixed issue #.
+2. Instala las dependencias de Node.js para el desarrollo de la extensión:
+   ```bash
+   npm install
+   ```
 
-### 1.1.0
+3. Compila el proyecto TypeScript para que la extensión funcione correctamente:
+   ```bash
+   npm run compile
+   ```
 
-Added features X, Y, and Z.
+### 4. Ejecución del proyecto
+
+Para iniciar la extensión de VS Code y el servidor de Python:
+
+1. Ejecuta VS Code en modo de desarrollo con tu extensión:
+   ```bash
+   F5
+   ```
+2. La extensión abrirá una interfaz web donde puedes cargar un archivo y realizar una consulta.
+3. El archivo será enviado al backend y procesado por el script de Python, devolviendo tanto la respuesta a la consulta como el código generado por PandasAI.
+
+## Uso
+
+1. **Cargar un archivo de datos**: Selecciona un archivo de tipo Excel, CSV o JSON desde la interfaz web.
+2. **Realizar una consulta**: Escribe una consulta sobre los datos que quieras procesar.
+3. **Ver la respuesta**: La extensión ejecutará un script de Python con Pandas y PandasAI y te devolverá una respuesta basada en la consulta, así como el código generado por PandasAI.
+4. **Inspeccionar el código**: Revisa el código que se ha generado y usado para la respuesta.
+
+## Multiplataforma
+
+Este proyecto ha sido diseñado para funcionar tanto en **Windows** como en **Linux**, utilizando entornos virtuales separados para cada plataforma.
+
+- En **Linux**, los entornos virtuales se almacenan en `~/pyenv/versions/`.
+- En **Windows**, los entornos virtuales se encuentran en la ruta configurada por `pyenv-win`.
+
+La extensión detecta automáticamente el sistema operativo y activa el entorno correspondiente antes de ejecutar el proceso de Python.
+
+## Contribuciones
+
+¡Las contribuciones son bienvenidas! Si encuentras algún error o tienes una sugerencia, siéntete libre de crear un **Issue** o un **Pull Request**.
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
 
 ---
 
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Este documento proporciona una guía clara para que los usuarios instalen, configuren y usen tu proyecto. Si tienes más detalles específicos o necesitas ajustar algo más, estaré encantado de ayudarte a personalizarlo.
