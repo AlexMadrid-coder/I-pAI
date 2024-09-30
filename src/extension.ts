@@ -7,6 +7,14 @@ import { spawn } from 'child_process';
  * Declaración de variables globales
  */
 let extensionContext: vscode.ExtensionContext; // Contexto que usamos para la gestión de la comunicación entre JS-TS
+// La variable va a sacar sobre que sistema operativo estamos trabajando
+const isWindows = process.platform === 'win32';
+// Sacamos que intérprete de Python utilizar dependiendo de nuestro sistema operativo
+const interpretePytohn = isWindows
+	? path.resolve(__dirname, 'python', 'venv-windows', 'Scripts', 'python.exe') 
+	: path.resolve(__dirname, 'python', 'venv-linux', 'bin', 'python');
+// Vamos a declarar donde tenemos el fichero de python que lleva la lógica python
+const ficheroPython = path.resolve(__dirname, 'python', 'script.py');
 /**
  * FUNCTION activate 
  * 
