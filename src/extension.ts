@@ -28,7 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 }
 /**
- * CLASS SidebarProvider
+ * @class SidebarProvider
  * 
  * esta clase es la implementación del WebViewProvider que nos permite incrustar una página web en la primary sidebar
  */
