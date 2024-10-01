@@ -111,13 +111,13 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 							webviewView.webview.postMessage({command: 'claveAPI', clave});
 							break;
 						case 'error-NoConsulta': // Gestión de error --> No hemos subido consulta
-							vscode.window.showWarningMessage("Sin consulta no podemos trabajar");
+							vscode.window.showErrorMessage("Sin consulta no podemos trabajar");
 							break;
 						case 'error-NoFichero': // Gestión de error --> No hemos subido fichero
-							vscode.window.showWarningMessage("Sin fichero no podemos trabajar correctamente");
+							vscode.window.showErrorMessage("Sin fichero no podemos trabajar correctamente");
 							break;
 						case 'error-FormatoIncorrecto': // Gestión de error --> El formato del fichero es incorrecto
-							vscode.window.showWarningMessage("Extensión " + message.error + " incorrecto");
+							vscode.window.showErrorMessage("Extensión " + message.error + " incorrecto");
 							break;
 						case 'ipai-consulta': // Caso principal de la extensión --> Hacer la consulta
 							const nombre = message.nombre;
@@ -183,8 +183,37 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 function executePython(filePath: string, inputPrompt: string, extension: string, claveAPI: string) {
 	return new Promise((resolve, reject) => {
 		// Creamos el proceso Python con los argumentos necesarios
-		const pythonProcess = spawn(interpretePytohn, [ficheroPython, inputPrompt, filePath, extension]);
-
+		const pythonProcess = spawn(interpretePytohn, [ficheroPython, inputPrompt, filePath, extension, claveAPI]);
+		//
+		let result = '';
+		// Ahora tenemos que escuchar la salida stout del python
+		pythonProcess.stdout.on('data', (data) => {
+			result += data.toString(); // Guardamos la salida de Python 
+		});
+		// También escuchamos los errores del proceso
+		pythonProcess.stderr.on('data', (data) => {
+			// Devolvemos rechazo
+			reject(`Error de Python: ${data.toString()}`);
+		});
+		// Cuando el proceso termina, procesamos la salida como JSON
+		pythonProcess.on('close', (code) => {
+			if (code === 0) { // Salida correcta
+				try {
+					const salidaJSON = JSON.parse(result);
+					const outputPrompt = salidaJSON.prompt_output;
+					const lastExecutedCode = salidaJSON.last_code_executed;
+					// Acabamos la promesa con la solución
+					resolve({outputPrompt, lastExecutedCode});
+				}
+				catch (error) {
+					// Devolvemos rechazo
+					reject(`Error al parsear la respuesta de Python: ${error}`);
+				}
+			} else {
+				// Devolvemos rechazo
+				reject(`Proceso Python finalizó con código ${code}`);
+			}
+		});
 	});
 }
 /**
