@@ -16,6 +16,18 @@ const interpretePytohn = isWindows
 // Vamos a declarar donde tenemos el fichero de python que lleva la lógica python
 const ficheroPython = path.resolve(__dirname, 'python', 'script.py');
 /**
+ * @interface PythonResult 
+ * 
+ * @param {String} outputPrompt Output de la salida del fichero Python
+ * @param {String} lastExecutedCode C'odigo ejecutado para llegar a la salida
+ * 
+ * Declarada para la gesti'on de la salida del fichero Python
+ */
+interface PythonResult {
+	outputPrompt: string;
+	lastExecutedCode: string;
+}
+/**
  * FUNCTION activate 
  * 
  * Motor principal de la extensión, es la encargada de hacer que funciones así como de poder incrustar la pág.web en la primary sidebar 
@@ -137,23 +149,34 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 							// Ahora tenemos que crear el children_process de Python
 							try { // Ejecutamos el código python
 								const claveAPI = extensionContext.globalState.get('claveAPI') as string;
-								const respuesta = executePython(filePath, consulta, extension, claveAPI);
+								executePython(filePath, consulta, extension, claveAPI)
+								.then((result) => {
+									// Si se resuelve correctamente
+									console.log('Proceso Python exitoso');
+									const {outputPrompt, lastExecutedCode } = result as PythonResult;
+									// Mandamos los resultados al JS
+									webviewView.webview.postMessage({ command: 'ipai-resultado', outputPrompt});
+								})
+								.catch((error) => {
+									// Si la promesa es rechazada
+									// Mostramos tanto por consola como por el vscode que ha ocurrido un error
+									console.error(`Detectado error: ${error}`);
+									vscode.window.showErrorMessage(error);
+								})
+								.finally(() => {
+									// Limpiamos el fichero temporal cuando todo acaba
+									fs.unlink(filePath, (err) => {
+										if (err) { console.error('Error al eliminar el fichero temporal'); }
+										else { console.log('Fichero temporal eliminado'); }
+									});
+								});
 								// Separamos la respuesta en 'prompt-salida' y 'codigo-ejecutado'
 
 								// Devolvemos la estructura al JS
 							}
-							catch (error) { // Sacamos las excepciones
+							catch (error) { // Sacamos la excepcion si no se puede ejecutar el codigo python
 								console.error("Error: No se ha podido ejecutar el código Python -> ", error);
-							}
-							finally { // Limpiamos el fichero cuando acabe 
-								fs.unlink(filePath, (err) => {
-									if (err) {
-										console.error("Error: No se ha eliminado el fichero temporal: ", err);
-									}
-									else {
-										console.log("Fichero temporal eliminado: ", err);
-									}
-								});
+								vscode.window.showErrorMessage(`Error: No se ha podido ejecutar el código Python -> , ${error}`);
 							}
  							break;
 						
@@ -180,7 +203,7 @@ class SidebarProvider implements vscode.WebviewViewProvider{
  * 
  * @return {Promise} Devolvemos si ha funcionado o no además de lo requerido
  */
-function executePython(filePath: string, inputPrompt: string, extension: string, claveAPI: string) {
+function executePython(filePath: string, inputPrompt: string, extension: string, claveAPI: string): Promise<PythonResult>  {
 	return new Promise((resolve, reject) => {
 		// Creamos el proceso Python con los argumentos necesarios
 		const pythonProcess = spawn(interpretePytohn, [ficheroPython, inputPrompt, filePath, extension, claveAPI]);
