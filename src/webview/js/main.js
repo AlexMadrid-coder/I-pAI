@@ -101,13 +101,27 @@ document.getElementById('upload-btn').addEventListener('change', function() {
 
         // Metemos el nuevo div en el div chatbot
         document.getElementById('chat-zone').appendChild(nuevoMensaje);
-
         // Limpiamos el textArea 
         document.getElementById('chat-input').value = "";
         document.getElementById('chat-input').style.height = 'auto';
-        
-        // Ahora realizamos la llamada a la funci'on que va a mandar tanto el fichero como la consulta al typescript para ejecutar la consulta a PandasAI
-        
+        /**
+         * Vamos a crear un div 'esperando' para los usuarios y si puede ser una animación de espera
+         * 
+         * // TODO: Imagen panda de PandasAI girando poco a poco en forma de esperando
+         * 
+         * El estilo aplicado va a ser un cuadrado del mismo tipo pero con un borde blanco esperando
+         */
+        const divEsperando = document.createElement('div');
+        divEsperando.classList.add('square-waiting'); // Le metemos la clase de esperando
+        divEsperando.id = 'div-waiting'; // Le damos el id para poder manejarlo mejor próximamente
+        // Ahora vamos a hacer que aparezca la imagen
+        const img = document.createElement('img');
+        img.src = '${iconsBaseURI}/pandasai-image.png';
+        img.alt = 'Logo PandasAI';
+        // Añadimos la imagen al div
+        divEsperando.appendChild(img);
+        // Ahora lo añadimos todo al div en el que añadimos el div de la chatzone
+        document.getElementById('chat-zone').appendChild(divEsperando);
     }
 }
 /**
@@ -118,11 +132,31 @@ document.getElementById('upload-btn').addEventListener('change', function() {
  * 
  * Función que muestra en la parte visual el resultado creando un div y los botones necesarios
  */
-export function mostrarResultados(outputPrompt, lasCodeExecuted) {
-    // TODO: Ver como hago esto pq 
-    // 1. Tengo que eliminar el div que aún no he creado
-    // 2. Tengo que crear un nuevo div con el resultado
-    
+export function mostrarResultados(outputPrompt, lastCodeExecuted) {
+    // Eliminamos el div de esperando
+    const divEsperando = document.getElementById('div-waiting');
+    if (divEsperando) {
+        divEsperando.remove();
+    }
+    // Creamos un nuevo div para mostrar el resultado
+    const divResultado = document.createElement('div');
+    divResultado.classList.add('square');
+    divResultado.innerText = outputPrompt;
+    // Ahora creamos el botón para copiar lastCodeExecuted al portapapeles
+    const botonCopiar = document.createElement('button');
+    botonCopiar.innerText = 'Copiar código';
+    // Ahora hacemos declaramos internamente el listener para copiar el contenido al clipboard
+    botonCopiar.addEventListener('click', function() {
+        navigator.clipboard.writeText(lastCodeExecuted).then(function() {
+            alert('Código copiado al portapapeles!!');
+        }).catch(function(error) {
+            console.error('Error copiando el texto: ', error);
+        });
+    });
+    // Ahora añadimos el botón al div
+    divResultado.appendChild(botonCopiar);
+    // Añadimos al div que toca el divResultado
+    document.getElementById('chat-zone').appendChild(divResultado);
 }
 /**
  * @function mostrarError
@@ -130,13 +164,17 @@ export function mostrarResultados(outputPrompt, lasCodeExecuted) {
  * @param {String} errorMessage Mensaje de error que vamos a tener que mostrar
  */
 export function mostrarError(errorMessage) {
-    /**
-     * TODO: Ver como hago y creo esta mierda
-     * 1. Eliminar el div de espera
-     * 2. Crear el div con los estilo adecuados
-     * 3. Poner solución o contacto dentro del div
-     */
-
+    // Primero que nada eliminamos el div de esperando
+    const divEsperando = document.getElementById('div-waiting');
+    if (divEsperando) {
+        divEsperando.remove();
+    }
+    // Ahora creamos el div para mostrar el mensaje de error
+    const divError = document.createElement('div');
+    divError.classList.add('square-error');
+    divError.innerText = errorMessage;
+    // Añadimos el divError al contenedor principal 
+    document.getElementById('chat-zone').appendChild(divError);
 }
 /**
  * TRIGGER --> chat-input
