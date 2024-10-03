@@ -117,8 +117,8 @@ function comunicacion() {
  * Primero que nada añadimos el div con el prompt de consulta y luego le pasamos todo el material a la extensión para que la procese
  */
 document.getElementById('send-btn').addEventListener('click', function(){
-    addMessage();
     comunicacion();
+    addMessage();
     
 });
 //----------------------------------------------------------------------------//
@@ -130,7 +130,7 @@ document.getElementById('send-btn').addEventListener('click', function(){
 document.getElementById('chat-input').addEventListener('keydown', function(event){
     if (event.key === 'Enter') {
         event.preventDefault();
-        addMessage();
         comunicacion();
+        addMessage();
     }
 });

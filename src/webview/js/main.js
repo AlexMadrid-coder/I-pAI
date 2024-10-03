@@ -120,7 +120,8 @@ document.getElementById('upload-btn').addEventListener('change', function() {
         divEsperando.id = 'div-waiting'; // Le damos el id para poder manejarlo mejor próximamente
         // Ahora vamos a hacer que aparezca la imagen
         const img = document.createElement('img');
-        img.src = '${iconsBaseURI}/pandasai-image.png';
+        // img.src = '${iconsBaseURI}/pandasai-image.png';
+        img.src = 'src\webview\media\img\pandasai-image.png';
         img.alt = 'Logo PandasAI';
         // Añadimos la imagen al div
         divEsperando.appendChild(img);
