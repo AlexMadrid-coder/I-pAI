@@ -43,7 +43,7 @@ body{
 }
 .square-waiting{
     background-color: var(--main-black);
-    border: 1px solir var(--main-yellow);
+    border: 2px solir var(--main-yellow);
     padding: 10px;
     text-align: center;
     border-radius: 15px;
