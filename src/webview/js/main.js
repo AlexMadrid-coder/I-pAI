@@ -144,6 +144,8 @@ export function mostrarResultados(outputPrompt, lastCodeExecuted) {
     divResultado.innerText = outputPrompt;
     // Ahora creamos el botón para copiar lastCodeExecuted al portapapeles
     const botonCopiar = document.createElement('button');
+    botonCopiar.type = 'button';
+    botonCopiar.classList.add('btn btn-primary');
     botonCopiar.innerText = 'Copiar código';
     // Ahora hacemos declaramos internamente el listener para copiar el contenido al clipboard
     botonCopiar.addEventListener('click', function() {
