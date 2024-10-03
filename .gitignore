@@ -129,7 +129,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# Para reducir la carga del github vamos a eliminar temporalmente las librerías
+# Entornos virtuales para disminuir la carga 
 venv-linux/
 venv-windows/
-.python-pandasai-venv/
