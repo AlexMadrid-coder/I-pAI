@@ -1,6 +1,6 @@
 // Variables globales para la gestión de la lógica del programa
 let fileUploaded = false;
-
+//----------------------------------------------------------------------------//
 /**
  * TRIGGER --> Nav-Links
  * 
@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+//----------------------------------------------------------------------------//
 /**
  * TRIGGER --> chat-input
  * 
@@ -44,6 +45,7 @@ document.getElementById('chat-input').addEventListener('input', function() {
     chatInput.style.height = 'auto';
     chatInput.style.height = chatInput.scrollHeight + 'px';
 });
+//----------------------------------------------------------------------------//
 /**
  * TRIGGER --> custom-upload-btn + upload-btn
  * 
@@ -66,6 +68,7 @@ document.getElementById('custom-upload-btn').addEventListener('click', function(
         btn.click();
     }
 });
+//----------------------------------------------------------------------------//
 document.getElementById('upload-btn').addEventListener('change', function() {
     if (document.getElementById('upload-btn').files.length > 0) {
         // Cuando seleccionamos un fichero
@@ -74,6 +77,7 @@ document.getElementById('upload-btn').addEventListener('change', function() {
         fileUploaded = true;
     }
 });
+//----------------------------------------------------------------------------//
 /**
  * FUNCTION addMessage()
  * 
@@ -124,6 +128,7 @@ document.getElementById('upload-btn').addEventListener('change', function() {
         document.getElementById('chat-zone').appendChild(divEsperando);
     }
 }
+//----------------------------------------------------------------------------//
 /**
  * @function mostrarResultados
  * 
@@ -160,6 +165,7 @@ export function mostrarResultados(outputPrompt, lastCodeExecuted) {
     // Añadimos al div que toca el divResultado
     document.getElementById('chat-zone').appendChild(divResultado);
 }
+//----------------------------------------------------------------------------//
 /**
  * @function mostrarError
  * 
@@ -178,6 +184,7 @@ export function mostrarError(errorMessage) {
     // Añadimos el divError al contenedor principal 
     document.getElementById('chat-zone').appendChild(divError);
 }
+//----------------------------------------------------------------------------//
 /**
  * TRIGGER --> chat-input
  * 

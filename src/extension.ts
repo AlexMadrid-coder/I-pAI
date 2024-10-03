@@ -15,6 +15,7 @@ const interpretePytohn = isWindows
 	: path.resolve(__dirname, 'python', 'venv-linux', 'bin', 'python');
 // Vamos a declarar donde tenemos el fichero de python que lleva la lógica python
 const ficheroPython = path.resolve(__dirname, 'python', 'script.py');
+//----------------------------------------------------------------------------//
 /**
  * @interface PythonResult 
  * 
@@ -27,6 +28,7 @@ interface PythonResult {
 	outputPrompt: string;
 	lastExecutedCode: string;
 }
+//----------------------------------------------------------------------------//
 /**
  * FUNCTION activate 
  * 
@@ -47,6 +49,7 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.registerWebviewViewProvider('ipai.mainContainer', provider) // Agregamos la pag. web al primary sidebar
 	);
 }
+//----------------------------------------------------------------------------//
 /**
  * @class SidebarProvider
  * 
@@ -144,8 +147,6 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 							const filePath = path.join(tempDir, nombre);
 							// Ahora guardamos en el temporal el contenido del fichero
 							fs.writeFileSync(filePath, contenido);
-							// 
-
 							// Ahora tenemos que crear el children_process de Python
 							try { // Ejecutamos el código python
 								const claveAPI = extensionContext.globalState.get('claveAPI') as string;
@@ -172,16 +173,12 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 										else { console.log('Fichero temporal eliminado'); }
 									});
 								});
-								// Separamos la respuesta en 'prompt-salida' y 'codigo-ejecutado'
-
-								// Devolvemos la estructura al JS
 							}
 							catch (error) { // Sacamos la excepcion si no se puede ejecutar el codigo python
 								console.error("Error: No se ha podido ejecutar el código Python -> ", error);
 								vscode.window.showErrorMessage(`Error: No se ha podido ejecutar el código Python -> , ${error}`);
 							}
  							break;
-						
 					}
 				},
 				undefined,
@@ -189,6 +186,7 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 			);
 		}
 }
+//----------------------------------------------------------------------------//
 /**
  * FUNCTION executePython
  * 
@@ -241,6 +239,7 @@ function executePython(filePath: string, inputPrompt: string, extension: string,
 		});
 	});
 }
+//----------------------------------------------------------------------------//
 /**
  * Función que desactiva la extensión cuando el propio Visual Studio Code lo necesita
  */

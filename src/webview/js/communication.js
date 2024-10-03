@@ -5,7 +5,7 @@ import { mostrarResultados } from './main.js';
 
 // Declaramos las variables globales necesarias
 const vscode = acquireVsCodeApi(); // Con esto creamos el flujo vscode-webview
-
+//----------------------------------------------------------------------------//
 /**
  * TRIGGER --> DOMContentLoaded
  * 
@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+//----------------------------------------------------------------------------//
 /**
  * Este listener es para recibir los mensajes después de 
  */
@@ -61,6 +62,7 @@ window.addEventListener('message', event => {
         mostrarError(message.errorMessage);
     }
 });
+//----------------------------------------------------------------------------//
 /**
  * FUNCTION comunicacion()
  * 
@@ -107,6 +109,7 @@ function comunicacion() {
     };
     reader.readAsDataURL(fichero);
 }
+//----------------------------------------------------------------------------//
 /**
  * TRIGGER --> send-btn
  * 
@@ -118,6 +121,7 @@ document.getElementById('send-btn').addEventListener('click', function(){
     comunicacion();
     
 });
+//----------------------------------------------------------------------------//
 /**
  * TRIGGER --> chat-input
  * 
