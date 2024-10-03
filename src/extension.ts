@@ -155,7 +155,7 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 									console.log('Proceso Python exitoso');
 									const {outputPrompt, lastExecutedCode } = result as PythonResult;
 									// Mandamos los resultados al JS
-									webviewView.webview.postMessage({ command: 'ipai-resultado', outputPrompt});
+									webviewView.webview.postMessage({ command: 'ipai-resultado', outputPrompt: outputPrompt, lastExecutedCode: lastExecutedCode});
 								})
 								.catch((error) => {
 									// Si la promesa es rechazada

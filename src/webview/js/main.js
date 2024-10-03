@@ -111,6 +111,32 @@ document.getElementById('upload-btn').addEventListener('change', function() {
     }
 }
 /**
+ * @function mostrarResultados
+ * 
+ * @param {String} outputPrompt Prompt de salida recibido del TS
+ * @param {String} lasCodeExecuted Código ejecutado para llegar al outputPrompt recibido del TS
+ * 
+ * Función que muestra en la parte visual el resultado creando un div y los botones necesarios
+ */
+export function mostrarResultados(outputPrompt, lasCodeExecuted) {
+    // TODO: Ver como hago esto pq 
+    // 1. Tengo que eliminar el div que aún no he creado
+    // 2. Tengo que crear un nuevo div con el resultado
+}
+/**
+ * @function mostrarError
+ * 
+ * @param {String} errorMessage Mensaje de error que vamos a tener que mostrar
+ */
+export function mostrarError(errorMessage) {
+    /**
+     * TODO: Ver como hago y creo esta mierda
+     * 1. Eliminar el div de espera
+     * 2. Crear el div con los estilo adecuados
+     * 3. Poner solución o contacto dentro del div
+     */
+}
+/**
  * TRIGGER --> chat-input
  * 
  * Inhabilitamos el botón de enviar consulta si no tenemos nada escrito en el textarea de consulta

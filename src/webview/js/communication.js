@@ -1,5 +1,7 @@
 // Importamos las funciones necesarias
 import { addMessage } from './main.js';
+import { mostrarError } from './main.js';
+import { mostrarResultados } from './main.js';
 
 // Declaramos las variables globales necesarias
 const vscode = acquireVsCodeApi(); // Con esto creamos el flujo vscode-webview
@@ -35,6 +37,22 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('claveInput').value = message.clave;
         }
     });
+});
+/**
+ * 
+ */
+window.addEventListener('message', event => {
+    const message = event.data;
+    // Verificamos que hemos recibido el mensaje correcto o error
+    if (message.command === 'ipai-resultado') {
+        mostrarResultados(message.outputPrompt, message.lastCodeExecuted);
+    }
+    else if (message.command === 'error') {
+        /**
+         * TODO: Gestión de mensajes de error y llamada a la función
+         */
+        mostrarError(message.errorMessage);
+    }
 });
 /**
  * FUNCTION comunicacion()
