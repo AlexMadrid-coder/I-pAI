@@ -39,17 +39,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 /**
- * 
+ * Este listener es para recibir los mensajes después de 
  */
 window.addEventListener('message', event => {
     const message = event.data;
     // Verificamos que hemos recibido el mensaje correcto o error
     if (message.command === 'ipai-resultado') {
+        // Simplemente llamamo a esta función 
         mostrarResultados(message.outputPrompt, message.lastCodeExecuted);
     }
-    else if (message.command === 'error') {
+    else if (message.command === 'ipai-error') {
         /**
-         * TODO: Gestión de mensajes de error y llamada a la función
+         * En este apartado tenemos 3 tipos de error que pueden suceder
+         * 1. Si no se llega a ejecutar el entorno Python
+         *      No hacemos nada y recogemos todo por consola
+         * 2. Error al parsear la respuesta de Python 
+         *      Mostramos un mensaje en el webview
+         * 3. El proceso de Python finalizó con código erroneo
+         *      Mostramos un mensaje en el webview
          */
         mostrarError(message.errorMessage);
     }

@@ -162,6 +162,8 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 									// Mostramos tanto por consola como por el vscode que ha ocurrido un error
 									console.error(`Detectado error: ${error}`);
 									vscode.window.showErrorMessage(error);
+									// Mandamos mensaje de error al webview y gestionamos mostrar el error visualmente para el usuario
+									webviewView.webview.postMessage({ command: 'ipai-error', errorMessage: error});
 								})
 								.finally(() => {
 									// Limpiamos el fichero temporal cuando todo acaba
@@ -201,13 +203,13 @@ class SidebarProvider implements vscode.WebviewViewProvider{
  * @param {string} extension Extension que vamos a utilizar para el switch y abrir el flujo de trabajo
  * @param {string} claveAPI Clave API para generar la respuesta
  * 
- * @return {Promise} Devolvemos si ha funcionado o no además de lo requerido
+ * @return {Promise<PythonResult>} Devolvemos si ha funcionado o no además de lo requerido
  */
 function executePython(filePath: string, inputPrompt: string, extension: string, claveAPI: string): Promise<PythonResult>  {
 	return new Promise((resolve, reject) => {
 		// Creamos el proceso Python con los argumentos necesarios
 		const pythonProcess = spawn(interpretePytohn, [ficheroPython, inputPrompt, filePath, extension, claveAPI]);
-		//
+		// Sacamos los resultados en esta variable pero no debería salir nada sino al salir
 		let result = '';
 		// Ahora tenemos que escuchar la salida stout del python
 		pythonProcess.stdout.on('data', (data) => {

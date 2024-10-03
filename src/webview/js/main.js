@@ -122,6 +122,7 @@ export function mostrarResultados(outputPrompt, lasCodeExecuted) {
     // TODO: Ver como hago esto pq 
     // 1. Tengo que eliminar el div que aún no he creado
     // 2. Tengo que crear un nuevo div con el resultado
+    
 }
 /**
  * @function mostrarError
@@ -135,6 +136,7 @@ export function mostrarError(errorMessage) {
      * 2. Crear el div con los estilo adecuados
      * 3. Poner solución o contacto dentro del div
      */
+
 }
 /**
  * TRIGGER --> chat-input
