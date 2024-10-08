@@ -78,8 +78,10 @@ function comunicacion() {
     const fichero = document.getElementById('upload-btn').files[0];
     const permitidas = ['xls', 'xlsx', 'csv', 'json'];
     const extension = fichero.name.split(".").pop().toLowerCase();
+    const nombre = fichero.name;
+    const directorio = fichero.path;
     // También tenemos que sacar el texto para la consulta
-    const consulta = document.getElementById('chat-input').value.trim();
+    const consulta = document.getElementById('div-prompt').innerText.trim();
     // Realizamos las comprobaciones
     if (consulta === "") { // Si no tenemos consulta
         vscode.postMessage({command: "error-NoConsulta"});
@@ -93,21 +95,23 @@ function comunicacion() {
         vscode.postMessage({command: "error-FormatoIncorrecto", error: extension});
         return;
     }
-    // Vamos a preparar el fichero y enviarlo al TS
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        const fileContent  = event.target.result;
-        // Una vez preparado creamos el mensaje y lo mandamos
-        mensaje = { // Estructura mensaje que vamos a enviar al TS
-            command: 'ipai-consulta',
-            fichero: fileContent,
-            nombre: fichero.name,
-            extension: extension,
-            consulta: consulta
-        };
-        vscode.postMessage(mensaje);
+    // Una vez preparado creamos el mensaje y lo mandamos
+    const mensaje = { /**
+                * Estructura que vamos a pasar al TS
+                * Le vamos a pasar:
+                *   1. El comando para ejecutar la consulta
+                *   2. El nombre del fichero para dar soporte a PandasAI 
+                *   3. El directorio en el que tenemos el fichero para ahorrar problemas
+                *   4. La extensión para poder procesarlo en Python
+                *   5. La consulta a ejercer sobre el Dataset
+                */
+        command: 'ipai-consulta',
+        nombre: nombre,
+        directorio: directorio,
+        extension: extension,
+        consulta: consulta
     };
-    reader.readAsDataURL(fichero);
+    vscode.postMessage(mensaje);
 }
 //----------------------------------------------------------------------------//
 /**
@@ -117,8 +121,8 @@ function comunicacion() {
  * Primero que nada añadimos el div con el prompt de consulta y luego le pasamos todo el material a la extensión para que la procese
  */
 document.getElementById('send-btn').addEventListener('click', function(){
-    comunicacion();
     addMessage();
+    comunicacion();
     
 });
 //----------------------------------------------------------------------------//
@@ -130,7 +134,7 @@ document.getElementById('send-btn').addEventListener('click', function(){
 document.getElementById('chat-input').addEventListener('keydown', function(event){
     if (event.key === 'Enter') {
         event.preventDefault();
-        comunicacion();
         addMessage();
+        comunicacion();
     }
 });

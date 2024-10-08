@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 import { spawn } from 'child_process';
+import { stdout } from 'process';
 /**
  * Declaración de variables globales
  */
@@ -10,11 +11,12 @@ let extensionContext: vscode.ExtensionContext; // Contexto que usamos para la ge
 // La variable va a sacar sobre que sistema operativo estamos trabajando
 const isWindows = process.platform === 'win32';
 // Sacamos que intérprete de Python utilizar dependiendo de nuestro sistema operativo
+// X:\Repos\I-pAI\src\python\venv-windows\Scripts\python.exe
 const interpretePytohn = isWindows
-	? path.resolve(__dirname, 'python', 'venv-windows', 'Scripts', 'python.exe')
-	: path.resolve(__dirname, 'python', 'venv-linux', 'bin', 'python');
+	? path.resolve(__dirname, '..', 'src', 'python', 'venv-windows', 'Scripts', 'python.exe')
+	: path.resolve(__dirname, '..', 'src', 'python', 'venv-linux', 'bin', 'python');
 // Vamos a declarar donde tenemos el fichero de python que lleva la lógica python
-const ficheroPython = path.resolve(__dirname, 'python', 'script.py');
+const ficheroPython = path.resolve(__dirname,'..', 'src', 'python', 'script.py');
 //----------------------------------------------------------------------------//
 /**
  * @interface PythonResult 
@@ -136,21 +138,24 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 							break;
 						case 'ipai-consulta': // Caso principal de la extensión --> Hacer la consulta
 							const nombre = message.nombre;
+							const directorio = message.directorio;
 							const extension = message.extension;
 							const consulta = message.consulta;
-							const contenido = message.fileContent.split(','[1]);
-							// Creamos un directorio temporal para guardar el fichero 
+
+						// Voy a hacer una prueba sin utilizar el 
+
+							/** Creamos un directorio temporal para guardar el fichero 
 							const tempDir = path.join(__dirname, 'temp');
 							if (!fs.existsSync(tempDir)) {
 								fs.mkdirSync(tempDir);
 							}
 							const filePath = path.join(tempDir, nombre);
 							// Ahora guardamos en el temporal el contenido del fichero
-							fs.writeFileSync(filePath, contenido);
+							fs.writeFileSync(filePath, contenido); */
 							// Ahora tenemos que crear el children_process de Python
 							try { // Ejecutamos el código python
 								const claveAPI = extensionContext.globalState.get('claveAPI') as string;
-								executePython(filePath, consulta, extension, claveAPI)
+								executePython(directorio, nombre, consulta, extension, claveAPI)
 								.then((result) => {
 									// Si se resuelve correctamente
 									console.log('Proceso Python exitoso');
@@ -165,14 +170,14 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 									vscode.window.showErrorMessage(error);
 									// Mandamos mensaje de error al webview y gestionamos mostrar el error visualmente para el usuario
 									webviewView.webview.postMessage({ command: 'ipai-error', errorMessage: error});
-								})
-								.finally(() => {
+								});
+								/** .finally(() => {
 									// Limpiamos el fichero temporal cuando todo acaba
 									fs.unlink(filePath, (err) => {
 										if (err) { console.error('Error al eliminar el fichero temporal'); }
 										else { console.log('Fichero temporal eliminado'); }
 									});
-								});
+								});*/
 							}
 							catch (error) { // Sacamos la excepcion si no se puede ejecutar el codigo python
 								console.error("Error: No se ha podido ejecutar el código Python -> ", error);
@@ -203,19 +208,48 @@ class SidebarProvider implements vscode.WebviewViewProvider{
  * 
  * @return {Promise<PythonResult>} Devolvemos si ha funcionado o no además de lo requerido
  */
-function executePython(filePath: string, inputPrompt: string, extension: string, claveAPI: string): Promise<PythonResult>  {
+function executePython(directorio: string, nombre: string, consulta: string, extension: string, claveAPI: string): Promise<PythonResult>  {
 	return new Promise((resolve, reject) => {
 		// Creamos el proceso Python con los argumentos necesarios
-		const pythonProcess = spawn(interpretePytohn, [ficheroPython, inputPrompt, filePath, extension, claveAPI]);
+		const pythonProcess = spawn(interpretePytohn, [ficheroPython, directorio, nombre, consulta, extension, claveAPI], {
+			stdio: ['pipe', 'pipe', 'pipe']
+		});
 		// Sacamos los resultados en esta variable pero no debería salir nada sino al salir
 		let result = '';
 		// Ahora tenemos que escuchar la salida stout del python
 		pythonProcess.stdout.on('data', (data) => {
-			result += data.toString(); // Guardamos la salida de Python 
+			const output = data.toString();
+			console.log(`Salida de python: ${data.toString()}`);
+
+			// Verificamos por mensajes de Python
+			if (output.includes('python: Argumentos recibidos')) {
+				console.log('TS: python recibió argumentos');
+			}
+			if (output.includes('python: Leyendo fichero...')) {
+				console.log('TS: python Leyendo el fichero');
+			}
+			if (output.includes('python: Fichero leído')) {
+				console.log('TS: python Fichero leído');
+			}
+			if (output.includes('python: Creamos modelo y SmartDataFrame')) {
+				console.log('TS: python creó modelo y SmartDataFrame');
+			}
+			if (output.includes('python: Comenzamos la consulta')) {
+				console.log('TS: python comienza la consulta');
+			}
+			if (output.includes('python: Comienza el fichero')) {
+				console.log('TS: python arranca');
+			}
+			if (output.includes('python: Resultados obtenidos')) {
+				console.log('TS: python acabó los resultados');
+			}
+
+			result += output; // Guardamos la salida de Python 
 		});
 		// También escuchamos los errores del proceso
 		pythonProcess.stderr.on('data', (data) => {
 			// Devolvemos rechazo
+			console.log(`Salida de python: ${data.toString()}`);
 			reject(`Error de Python: ${data.toString()}`);
 		});
 		// Cuando el proceso termina, procesamos la salida como JSON

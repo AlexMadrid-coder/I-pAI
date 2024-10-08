@@ -95,39 +95,26 @@ document.getElementById('upload-btn').addEventListener('change', function() {
         // Creamos el div que contendrá el mensaje
         const nuevoMensaje = document.createElement('div');
         nuevoMensaje.classList.add('square');
+        nuevoMensaje.innerText = mensaje;
+        nuevoMensaje.id = 'div-prompt';
 
+        /**
         // Ahora metemos como párrafo el texto de la pregunta
         const parrafo = document.createElement('p');
         parrafo.textContent = mensaje;
+        parrafo.id = 'inputText';
 
         // Metemos el parrafo en el nuevo div
         nuevoMensaje.appendChild(parrafo);
-
+        */
+        
         // Metemos el nuevo div en el div chatbot
         document.getElementById('chat-zone').appendChild(nuevoMensaje);
         // Limpiamos el textArea 
         document.getElementById('chat-input').value = "";
         document.getElementById('chat-input').style.height = 'auto';
-        /**
-         * Vamos a crear un div 'esperando' para los usuarios y si puede ser una animación de espera
-         * 
-         * // TODO: Imagen panda de PandasAI girando poco a poco en forma de esperando
-         * 
-         * El estilo aplicado va a ser un cuadrado del mismo tipo pero con un borde blanco esperando
-         */
-        /** 
-        const divEsperando = document.createElement('div');
-        divEsperando.classList.add('square-waiting'); // Le metemos la clase de esperando
-        divEsperando.id = 'div-waiting'; // Le damos el id para poder manejarlo mejor próximamente
-        // Ahora vamos a hacer que aparezca la imagen
-        const img = document.createElement('img');
-        // img.src = '${iconsBaseURI}/pandasai-image.png';
-        img.src = 'src\webview\media\img\pandasai-image.png';
-        img.alt = 'Logo PandasAI';
-        // Añadimos la imagen al div
-        divEsperando.appendChild(img);
-        // Ahora lo añadimos todo al div en el que añadimos el div de la chatzone
-        document.getElementById('chat-zone').appendChild(divEsperando);*/
+        // Ahora mostramos el div de esperando ya que el trigger de main.js va a recoger los datos
+        document.getElementById('div-waiting').classList.remove('hide');
     }
 }
 //----------------------------------------------------------------------------//
@@ -140,15 +127,16 @@ document.getElementById('upload-btn').addEventListener('change', function() {
  * Función que muestra en la parte visual el resultado creando un div y los botones necesarios
  */
 export function mostrarResultados(outputPrompt, lastCodeExecuted) {
-    // Eliminamos el div de esperando
+    // Escondemos el div de esperando
     const divEsperando = document.getElementById('div-waiting');
     if (divEsperando) {
-        divEsperando.remove();
+        divEsperando.classList.add('hide');
     }
     // Creamos un nuevo div para mostrar el resultado
     const divResultado = document.createElement('div');
     divResultado.classList.add('square');
     divResultado.innerText = outputPrompt;
+    divResultado.id = 'div-resultado';
     // Ahora creamos el botón para copiar lastCodeExecuted al portapapeles
     const botonCopiar = document.createElement('button');
     botonCopiar.type = 'button';
@@ -174,18 +162,17 @@ export function mostrarResultados(outputPrompt, lastCodeExecuted) {
  * @param {String} errorMessage Mensaje de error que vamos a tener que mostrar
  */
 export function mostrarError(errorMessage) {
-    // Primero que nada eliminamos el div de esperando
+    // Primero que nada escondemos el div de esperando
     const divEsperando = document.getElementById('div-waiting');
     if (divEsperando) {
-        divEsperando.remove();
+        divEsperando.classList.add('hide');
     }
-    /**
-    // Ahora creamos el div para mostrar el mensaje de error 
-    const divError = document.createElement('div');
-    divError.classList.add('square-error');
-    divError.innerText = errorMessage;
-    // Añadimos el divError al contenedor principal 
-    document.getElementById('chat-zone').appendChild(divError);*/
+    // Ahora mostramos el div de error
+    const divError = document.getElementById('div-error');
+    if (divError) {
+        divError.classList.remove('hide');
+        divError.innerText = errorMessage;
+    }
 }
 //----------------------------------------------------------------------------//
 /**
