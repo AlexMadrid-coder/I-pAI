@@ -115,6 +115,7 @@ document.getElementById('upload-btn').addEventListener('change', function() {
          * 
          * El estilo aplicado va a ser un cuadrado del mismo tipo pero con un borde blanco esperando
          */
+        /** 
         const divEsperando = document.createElement('div');
         divEsperando.classList.add('square-waiting'); // Le metemos la clase de esperando
         divEsperando.id = 'div-waiting'; // Le damos el id para poder manejarlo mejor próximamente
@@ -126,7 +127,7 @@ document.getElementById('upload-btn').addEventListener('change', function() {
         // Añadimos la imagen al div
         divEsperando.appendChild(img);
         // Ahora lo añadimos todo al div en el que añadimos el div de la chatzone
-        document.getElementById('chat-zone').appendChild(divEsperando);
+        document.getElementById('chat-zone').appendChild(divEsperando);*/
     }
 }
 //----------------------------------------------------------------------------//
@@ -178,12 +179,13 @@ export function mostrarError(errorMessage) {
     if (divEsperando) {
         divEsperando.remove();
     }
-    // Ahora creamos el div para mostrar el mensaje de error
+    /**
+    // Ahora creamos el div para mostrar el mensaje de error 
     const divError = document.createElement('div');
     divError.classList.add('square-error');
     divError.innerText = errorMessage;
     // Añadimos el divError al contenedor principal 
-    document.getElementById('chat-zone').appendChild(divError);
+    document.getElementById('chat-zone').appendChild(divError);*/
 }
 //----------------------------------------------------------------------------//
 /**
