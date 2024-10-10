@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 import { spawn } from 'child_process';
-import { stdout } from 'process';
+import { isIP } from 'net';
 /**
  * Declaración de variables globales
  */
@@ -11,12 +11,19 @@ let extensionContext: vscode.ExtensionContext; // Contexto que usamos para la ge
 // La variable va a sacar sobre que sistema operativo estamos trabajando
 const isWindows = process.platform === 'win32';
 // Sacamos que intérprete de Python utilizar dependiendo de nuestro sistema operativo
-// X:\Repos\I-pAI\src\python\venv-windows\Scripts\python.exe
+const interpretePytohnUri = isWindows
+	? vscode.Uri.joinPath(vscode.Uri.file(__dirname), '..', 'src', 'python', 'venv-windows', 'Scripts', 'python.exe')
+	: vscode.Uri.joinPath(vscode.Uri.file(__dirname), '..', 'src', 'python', 'venv-linux', 'bin', 'python');
+/** 
 const interpretePytohn = isWindows
 	? path.resolve(__dirname, '..', 'src', 'python', 'venv-windows', 'Scripts', 'python.exe')
-	: path.resolve(__dirname, '..', 'src', 'python', 'venv-linux', 'bin', 'python');
+	: path.resolve(__dirname, '..', 'src', 'python', 'venv-linux', 'bin', 'python');*/
 // Vamos a declarar donde tenemos el fichero de python que lleva la lógica python
-const ficheroPython = path.resolve(__dirname,'..', 'src', 'python', 'script.py');
+// const ficheroPython = path.resolve(__dirname,'..', 'src', 'python', 'script-p.py');
+const ficheroPythonUri = vscode.Uri.joinPath(vscode.Uri.file(__dirname), '..', 'src', 'python', 'script-p.py');
+// Ahora hacemos las rutas correctas con las URI
+const interpretePytohn = interpretePytohnUri.fsPath;
+const ficheroPython = ficheroPythonUri.fsPath;
 //----------------------------------------------------------------------------//
 /**
  * @interface PythonResult 
@@ -210,6 +217,14 @@ class SidebarProvider implements vscode.WebviewViewProvider{
  */
 function executePython(directorio: string, nombre: string, consulta: string, extension: string, claveAPI: string): Promise<PythonResult>  {
 	return new Promise((resolve, reject) => {
+		// Vamos a ver que información estamos pasando antes de llamarlo por medio de un console.log
+		console.log(directorio);
+		console.log(nombre);
+		console.log(consulta);
+		console.log(extension);
+		console.log(claveAPI);
+		console.log(interpretePytohn);
+		console.log(ficheroPython);
 		// Creamos el proceso Python con los argumentos necesarios
 		const pythonProcess = spawn(interpretePytohn, [ficheroPython, directorio, nombre, consulta, extension, claveAPI], {
 			stdio: ['pipe', 'pipe', 'pipe']
@@ -222,6 +237,9 @@ function executePython(directorio: string, nombre: string, consulta: string, ext
 			console.log(`Salida de python: ${data.toString()}`);
 
 			// Verificamos por mensajes de Python
+			if (output.includes('python: Estamos dentro')) {
+				console.log('TS(python): Estamos dentro');
+			}
 			if (output.includes('python: Argumentos recibidos')) {
 				console.log('TS: python recibió argumentos');
 			}
