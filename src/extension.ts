@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { spawn } from 'child_process';
 import { isIP } from 'net';
+import { log } from 'console';
 /**
  * Declaración de variables globales
  */
@@ -14,16 +15,13 @@ const isWindows = process.platform === 'win32';
 const interpretePytohnUri = isWindows
 	? vscode.Uri.joinPath(vscode.Uri.file(__dirname), '..', 'src', 'python', 'venv-windows', 'Scripts', 'python.exe')
 	: vscode.Uri.joinPath(vscode.Uri.file(__dirname), '..', 'src', 'python', 'venv-linux', 'bin', 'python');
-/** 
-const interpretePytohn = isWindows
-	? path.resolve(__dirname, '..', 'src', 'python', 'venv-windows', 'Scripts', 'python.exe')
-	: path.resolve(__dirname, '..', 'src', 'python', 'venv-linux', 'bin', 'python');*/
-// Vamos a declarar donde tenemos el fichero de python que lleva la lógica python
-// const ficheroPython = path.resolve(__dirname,'..', 'src', 'python', 'script-p.py');
-const ficheroPythonUri = vscode.Uri.joinPath(vscode.Uri.file(__dirname), '..', 'src', 'python', 'script-p.py');
+// Vamos a guardar los logs en nuestro fichero predeterminado
+const logsPandasaiUri = vscode.Uri.joinPath(vscode.Uri.file(__dirname), '..', 'src', 'python', 'pandasai.log');
+const ficheroPythonUri = vscode.Uri.joinPath(vscode.Uri.file(__dirname), '..', 'src', 'python', 'script.py');
 // Ahora hacemos las rutas correctas con las URI
 const interpretePytohn = interpretePytohnUri.fsPath;
 const ficheroPython = ficheroPythonUri.fsPath;
+const logsPandasai = logsPandasaiUri.fsPath;
 //----------------------------------------------------------------------------//
 /**
  * @interface PythonResult 
@@ -148,18 +146,7 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 							const directorio = message.directorio;
 							const extension = message.extension;
 							const consulta = message.consulta;
-
-						// Voy a hacer una prueba sin utilizar el 
-
-							/** Creamos un directorio temporal para guardar el fichero 
-							const tempDir = path.join(__dirname, 'temp');
-							if (!fs.existsSync(tempDir)) {
-								fs.mkdirSync(tempDir);
-							}
-							const filePath = path.join(tempDir, nombre);
-							// Ahora guardamos en el temporal el contenido del fichero
-							fs.writeFileSync(filePath, contenido); */
-							// Ahora tenemos que crear el children_process de Python
+							// Hacemos un try-catch con toda la información necesaria
 							try { // Ejecutamos el código python
 								const claveAPI = extensionContext.globalState.get('claveAPI') as string;
 								executePython(directorio, nombre, consulta, extension, claveAPI)
@@ -217,14 +204,6 @@ class SidebarProvider implements vscode.WebviewViewProvider{
  */
 function executePython(directorio: string, nombre: string, consulta: string, extension: string, claveAPI: string): Promise<PythonResult>  {
 	return new Promise((resolve, reject) => {
-		// Vamos a ver que información estamos pasando antes de llamarlo por medio de un console.log
-		console.log(directorio);
-		console.log(nombre);
-		console.log(consulta);
-		console.log(extension);
-		console.log(claveAPI);
-		console.log(interpretePytohn);
-		console.log(ficheroPython);
 		// Creamos el proceso Python con los argumentos necesarios
 		const pythonProcess = spawn(interpretePytohn, [ficheroPython, directorio, nombre, consulta, extension, claveAPI], {
 			stdio: ['pipe', 'pipe', 'pipe']
@@ -234,7 +213,7 @@ function executePython(directorio: string, nombre: string, consulta: string, ext
 		// Ahora tenemos que escuchar la salida stout del python
 		pythonProcess.stdout.on('data', (data) => {
 			const output = data.toString();
-			console.log(`Salida de python: ${data.toString()}`);
+			//console.log(`Salida de python: ${data.toString()}`);
 
 			// Verificamos por mensajes de Python
 			if (output.includes('python: Estamos dentro')) {
@@ -267,7 +246,7 @@ function executePython(directorio: string, nombre: string, consulta: string, ext
 		// También escuchamos los errores del proceso
 		pythonProcess.stderr.on('data', (data) => {
 			// Devolvemos rechazo
-			console.log(`Salida de python: ${data.toString()}`);
+			console.log(`Salida error de python -->  ${data.toString()}`);
 			reject(`Error de Python: ${data.toString()}`);
 		});
 		// Cuando el proceso termina, procesamos la salida como JSON
