@@ -47,6 +47,7 @@ window.addEventListener('message', event => {
     // Verificamos que hemos recibido el mensaje correcto o error
     if (message.command === 'ipai-resultado') {
         // Simplemente llamamo a esta función 
+        console.log("Mensaje completo: \n", message);
         mostrarResultados(message.outputPrompt, message.lastCodeExecuted);
     }
     else if (message.command === 'ipai-error') {
@@ -138,3 +139,9 @@ document.getElementById('chat-input').addEventListener('keydown', function(event
         comunicacion();
     }
 });
+export function mostrarClipboard() {
+    vscode.postMessage({command: "ipai-clipboardMessage"});
+}
+export function mostrarErrorClipboard() {
+    vscode.postMessage({command: "ipai-clipboardErrorMessage"});
+}

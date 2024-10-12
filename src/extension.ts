@@ -141,6 +141,12 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 						case 'error-FormatoIncorrecto': // Gestión de error --> El formato del fichero es incorrecto
 							vscode.window.showErrorMessage("Extensión " + message.error + " incorrecto");
 							break;
+						case 'ipai-clipboardMessage':
+							vscode.window.showInformationMessage('Contenido copiado correctamente al portapapeles');
+							break;
+						case 'ipai-clipboardErrorMessage':
+							vscode.window.showErrorMessage('Error copiando el código al portapapeles');
+							break;
 						case 'ipai-consulta': // Caso principal de la extensión --> Hacer la consulta
 							const nombre = message.nombre;
 							const directorio = message.directorio;
@@ -213,34 +219,8 @@ function executePython(directorio: string, nombre: string, consulta: string, ext
 		// Ahora tenemos que escuchar la salida stout del python
 		pythonProcess.stdout.on('data', (data) => {
 			const output = data.toString();
-			//console.log(`Salida de python: ${data.toString()}`);
-
-			// Verificamos por mensajes de Python
-			if (output.includes('python: Estamos dentro')) {
-				console.log('TS(python): Estamos dentro');
-			}
-			if (output.includes('python: Argumentos recibidos')) {
-				console.log('TS: python recibió argumentos');
-			}
-			if (output.includes('python: Leyendo fichero...')) {
-				console.log('TS: python Leyendo el fichero');
-			}
-			if (output.includes('python: Fichero leído')) {
-				console.log('TS: python Fichero leído');
-			}
-			if (output.includes('python: Creamos modelo y SmartDataFrame')) {
-				console.log('TS: python creó modelo y SmartDataFrame');
-			}
-			if (output.includes('python: Comenzamos la consulta')) {
-				console.log('TS: python comienza la consulta');
-			}
-			if (output.includes('python: Comienza el fichero')) {
-				console.log('TS: python arranca');
-			}
-			if (output.includes('python: Resultados obtenidos')) {
-				console.log('TS: python acabó los resultados');
-			}
-
+			// Descomentar para comprobar todas las salidas de texto de python
+			// console.log(`Salida de python: ${data.toString()}`);
 			result += output; // Guardamos la salida de Python 
 		});
 		// También escuchamos los errores del proceso

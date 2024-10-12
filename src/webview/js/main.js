@@ -1,3 +1,5 @@
+// import { mostrarClipboard } from "./communication";
+// import { mostrarErrorClipboard } from "./communication";
 // Variables globales para la gestión de la lógica del programa
 let fileUploaded = false;
 //----------------------------------------------------------------------------//
@@ -140,14 +142,14 @@ export function mostrarResultados(outputPrompt, lastCodeExecuted) {
     // Ahora creamos el botón para copiar lastCodeExecuted al portapapeles
     const botonCopiar = document.createElement('button');
     botonCopiar.type = 'button';
-    botonCopiar.classList.add('btn btn-primary');
+    botonCopiar.classList.add('btn', 'btn-primary');
     botonCopiar.innerText = 'Copiar código';
     // Ahora hacemos declaramos internamente el listener para copiar el contenido al clipboard
     botonCopiar.addEventListener('click', function() {
         navigator.clipboard.writeText(lastCodeExecuted).then(function() {
-            alert('Código copiado al portapapeles!!');
+            console.log('Copiado correctamente');
         }).catch(function(error) {
-            console.error('Error copiando el texto: ', error);
+            console.log('Error: ', error);
         });
     });
     // Ahora añadimos el botón al div
