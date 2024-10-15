@@ -29,7 +29,7 @@ const logsPandasai = logsPandasaiUri.fsPath;
  * Declarada para la gesti'on de la salida del fichero Python
  */
 interface PythonResult {
-	outputPrompt: string;
+	outputPrompt: string,
 	lastExecutedCode: string;
 }
 //----------------------------------------------------------------------------//
@@ -138,11 +138,10 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 						case 'error-FormatoIncorrecto': // Gestión de error --> El formato del fichero es incorrecto
 							vscode.window.showErrorMessage("Extensión " + message.error + " incorrecto");
 							break;
-						case 'ipai-clipboardMessage':
-							vscode.window.showInformationMessage('Contenido copiado correctamente al portapapeles');
-							break;
-						case 'ipai-clipboardErrorMessage':
-							vscode.window.showErrorMessage('Error copiando el código al portapapeles');
+						case 'ipai-copyClipboard':
+							vscode.env.clipboard.writeText(message.lastCodeExecuted).then(() => {
+								vscode.window.showInformationMessage('Contenido copiado correctamente');
+							});
 							break;
 						case 'ipai-consulta': // Caso principal de la extensión --> Hacer la consulta
 							const nombre = message.nombre;
@@ -156,7 +155,7 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 								.then((result) => {
 									// Si se resuelve correctamente
 									console.log('Proceso Python exitoso');
-									const {outputPrompt, lastExecutedCode } = result as PythonResult;
+									const {outputPrompt, lastExecutedCode} = result as PythonResult;
 									// Mandamos los resultados al JS
 									webviewView.webview.postMessage({ command: 'ipai-resultado', outputPrompt: outputPrompt, lastExecutedCode: lastExecutedCode});
 								})

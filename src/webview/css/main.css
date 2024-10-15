@@ -6,6 +6,7 @@
     --main-grey: #212529;
     --main-yellow: #e28743;
     --main-red: #aa1115;
+    --main-green: #5aaa11;
 }
 
 .navbar-logo {
@@ -53,6 +54,14 @@ body{
 .square-error {
     background-color: var(--main-black);
     border: 1px solid var(--main-red);
+    padding: 10px;
+    text-align: center;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+.square-success {
+    background-color: var(--main-black);
+    border: 1px solid var(--main-green);
     padding: 10px;
     text-align: center;
     border-radius: 15px;

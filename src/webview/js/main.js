@@ -128,29 +128,38 @@ document.getElementById('upload-btn').addEventListener('change', function() {
  */
 export function mostrarResultados(outputPrompt, lastCodeExecuted) {
     // Escondemos el div de esperando
+    console.log(lastCodeExecuted);
+    console.log(typeof lastCodeExecuted);
+    console.log(outputPrompt);
+    console.log(typeof outputPrompt);
     const divEsperando = document.getElementById('div-waiting');
     if (divEsperando) {
         divEsperando.classList.add('hide');
     }
-    // Creamos un nuevo div para mostrar el resultado
+    // Creamos div y p para texto y botón
     const divResultado = document.createElement('div');
-    divResultado.classList.add('square');
-    divResultado.innerText = outputPrompt;
+    const textoResultado = document.createElement('p');
+    // Asignamos el texto al p 
+    textoResultado.innerText = outputPrompt;
+    // Añadimos las clases al div 
+    divResultado.classList.add('square-success');
     divResultado.id = 'div-resultado';
     // Ahora creamos el botón para copiar lastCodeExecuted al portapapeles
     const botonCopiar = document.createElement('button');
     botonCopiar.type = 'button';
+    botonCopiar.id = 'ipai-copyButton';
     botonCopiar.classList.add('btn', 'btn-primary');
-    botonCopiar.innerText = 'Copiar código';
-    // Ahora hacemos declaramos internamente el listener para copiar el contenido al clipboard
+    botonCopiar.innerText = 'Mostrar Código';
+    // Creamos el listener para el botón y mostrar el código
     botonCopiar.addEventListener('click', function() {
-        navigator.clipboard.writeText(lastCodeExecuted).then(function() {
-            console.log('Copiado correctamente');
-        }).catch(function(error) {
-            console.log('Error: ', error);
-        });
-    });
-    // Ahora añadimos el botón al div
+        const divCodigo = document.createElement('div');
+        divCodigo.classList.add('square-success');
+        divCodigo.innerText = lastCodeExecuted;
+        document.getElementById('chat-zone').appendChild(divCodigo);
+        botonCopiar.remove();
+    });  
+    // Ahora añadimos los elementos al div
+    divResultado.appendChild(textoResultado);
     divResultado.appendChild(botonCopiar);
     // Añadimos al div que toca el divResultado
     document.getElementById('chat-zone').appendChild(divResultado);
