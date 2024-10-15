@@ -1,5 +1,3 @@
-// import { mostrarClipboard } from "./communication";
-// import { mostrarErrorClipboard } from "./communication";
 // Variables globales para la gestión de la lógica del programa
 let fileUploaded = false;
 //----------------------------------------------------------------------------//

@@ -1,10 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import * as path from 'path';
 import { spawn } from 'child_process';
-import { isIP } from 'net';
-import { log } from 'console';
 /**
  * Declaración de variables globales
  */
@@ -171,19 +168,12 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 									// Mandamos mensaje de error al webview y gestionamos mostrar el error visualmente para el usuario
 									webviewView.webview.postMessage({ command: 'ipai-error', errorMessage: error});
 								});
-								/** .finally(() => {
-									// Limpiamos el fichero temporal cuando todo acaba
-									fs.unlink(filePath, (err) => {
-										if (err) { console.error('Error al eliminar el fichero temporal'); }
-										else { console.log('Fichero temporal eliminado'); }
-									});
-								});*/
 							}
 							catch (error) { // Sacamos la excepcion si no se puede ejecutar el codigo python
 								console.error("Error: No se ha podido ejecutar el código Python -> ", error);
 								vscode.window.showErrorMessage(`Error: No se ha podido ejecutar el código Python -> , ${error}`);
 							}
- 							break;
+						break;
 					}
 				},
 				undefined,
