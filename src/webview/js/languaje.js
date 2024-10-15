@@ -72,4 +72,19 @@ const languajeData = {
         'ipai-p-actualizaciones': 'En les pròximes actualitzacions farem un forum de preguntes i respostes pero per ara si tens problemes llig la <a href="https://docs.pandas-ai.com/intro">documentació de PandasAI</a>',
     }
 };
-
+/**
+ * Esta función cambia 
+ * 
+ * @param {string} idioma 
+ */
+export function cambiarIdioma(idioma) {
+    // Ahora recorremos las variables según el idioma y cambiamos todas las apariciones de texto
+    for (const [clave, traduccion] of Object.entries(languajeData[idioma])) {
+        // Buscamos el elemento en la página por su ID y si existe lo cambiamos
+        const element = document.getElementById(clave);
+        if (elemento) {
+            // Cambiamos el contenido por el seleccionado
+            element.innerHTML = traduccion;
+        }
+    }
+}
