@@ -15,7 +15,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#" data-bs-target="#section-inicio-tab-pane" data-bs-toggle="tab">
-                    <img src="${iconsBaseURI}/pandasai-image.png" alt="Logo PandasAI" class="navbar-logo">
+                    <img src="${iconsBaseURI}/pandasai-image.png" alt="PandasAI-Logo" class="navbar-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,19 +23,16 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="section-inicio-tab" data-bs-toggle="tab" data-bs-target="#section-inicio-tab-pane" type="button" role="tab" aria-controls="section-inicio-tab-pane" aria-selected="true">Inicio</button>
+                            <button class="nav-link active" id="section-inicio-tab" data-bs-toggle="tab" data-bs-target="#section-inicio-tab-pane" type="button" role="tab" aria-controls="section-inicio-tab-pane" aria-selected="true"><p id="ipai-p-inicio">Inicio</p></button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="section-chat-tab" data-bs-toggle="tab" data-bs-target="#section-chat-tab-pane" type="button" role="tab" aria-controls="section-chat-tab-pane" aria-selected="false">I-pAI chat</button>
+                            <button class="nav-link" id="section-chat-tab" data-bs-toggle="tab" data-bs-target="#section-chat-tab-pane" type="button" role="tab" aria-controls="section-chat-tab-pane" aria-selected="false"><p id="ipai-p-chat">I-pAI chat</p></button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="section-modelos-tab" data-bs-toggle="tab" data-bs-target="#section-modelos-tab-pane" type="button" role="tab" aria-controls="section-modelos-tab-pane" aria-selected="false">Selección de Modelo</button>
+                            <button class="nav-link" id="section-configuracion-tab" data-bs-toggle="tab" data-bs-target="#section-configuracion-tab-pane" type="button" role="tab" aria-controls="section-configuracion-tab-pane" aria-selected="false"><p id="ipai-p-configuracion">Configuración</p></button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="section-configuracion-tab" data-bs-toggle="tab" data-bs-target="#section-configuracion-tab-pane" type="button" role="tab" aria-controls="section-configuracion-tab-pane" aria-selected="false">Configuración</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="section-ayuda-tab" data-bs-toggle="tab" data-bs-target="#section-ayuda-tab-pane" type="button" role="tab" aria-controls="section-ayuda-tab-pane" aria-selected="false">Ayuda</button>
+                            <button class="nav-link" id="section-ayuda-tab" data-bs-toggle="tab" data-bs-target="#section-ayuda-tab-pane" type="button" role="tab" aria-controls="section-ayuda-tab-pane" aria-selected="false"><p id="ipai-p-ayuda">Ayuda</p></button>
                         </li>
                     </ul>
                 </div>
@@ -51,27 +48,27 @@
             <div class="container my-4">
 
                 <div class="square mb-3"> <!-- Div con la cabecera -->
-                    <h2>Gracias por elegir I-pAI</h2>
+                    <h2 id="ipai-h2-gracias">Gracias por elegir I-pAI</h2>
                 </div>
 
                 <hr class="border border-primary border-1 opacity-75">
 
                 <div class="square mb-3"> <!-- Div con texto 1 -->
-                    <p>Con esta extensión podrás agilizar el trabajo inicial y el primer preprocesado de datos</p>
+                    <p id="ipai-p-introduction-1">Con esta extensión podrás agilizar el trabajo inicial y el primer preprocesado de datos</p>
                 </div>
                 
                 <div class="row mb-3"> <!-- Div con dos cajas -->
                     <div class="col-md-6"> <!-- Div caja izquierda -->
-                        <div class="square"><p>Para saber más consulta la pestaña de <a href="#">Ayuda</a></p></div>
+                        <div class="square"><p id="ipai-p-introduction-2">Para saber más consulta la pestaña de <a href="#">Ayuda</a></p></div>
                     </div>
 
                     <div class="col-md-6"> <!-- Div caja derecha -->
-                        <div class="square"><p>Comienza ya a trabajar <a href="#">I-pAI Chat</a></p></div>
+                        <div class="square"><p id="ipai-p-introduction-3">Comienza ya a trabajar <a href="#">I-pAI Chat</a></p></div>
                     </div>
                 </div>
     
                 <div class="square mb-3"> <!-- Div con información -->
-                    <p>Te recomiendo consultar cómo dar los primeros pasos en <a href="https://github.com/AlexMadrid-coder/I-pAI">mi repositorio </a> con toda la información acerca del uso de la extensión</p>
+                    <p id="ipai-p-introduction-4">Te recomiendo consultar cómo dar los primeros pasos en <a href="https://github.com/AlexMadrid-coder/I-pAI">mi repositorio </a> con toda la información acerca del uso de la extensión</p>
                 </div>
             </div>
         </div>
@@ -87,17 +84,17 @@
 
                 <div id="chat-zone"> <!-- Zona de chat de la aplicación -->
                     <div class="square" id="chat-zone-init">
-                        <p>Para comenzar a trabajar sube tu dataset y comenzaremos la ronda de preguntas.</p>
-                        <p>Encontrarás el botón para subir tu archivo en el recuadro inferior junto al botón de enviar.</p>
+                        <p id="ipai-p-chat-1">Para comenzar a trabajar sube tu dataset y comenzaremos la ronda de preguntas</p>
+                        <p id="ipai-p-chat-2">Encontrarás el botón para subir tu archivo en el recuadro inferior junto al botón de enviar</p>
                     </div>
                 </div>
                 <!-- Div con el mensaje de esperando -->
                 <div id="div-waiting" class="square-waiting hide">
-                    <img src="${iconsBaseURI}/pandasai-image.png" alt="Logo PandasAI">
+                    <img src="${iconsBaseURI}/pandasai-image.png" alt="PandasAI-Logo">
                 </div>
                 <!-- Div con la gestión de errores de la extensión -->
                 <div id="div-error" class="square-error hide">
-                    <p>Ha ocurrido un error</p>
+                    <p id="ipai-chat-error">Ha ocurrido un error</p>
                 </div>
                 <div> <!-- Zona con la input box de text y los botones  de enviar y subir -->
                     <div class="container square mt-5">
@@ -125,17 +122,12 @@
             </div>
         </div>
     
-        <!-- Sección modelos-->
-        <div class="tab-pane fade" id="section-modelos-tab-pane" role="tabpanel" aria-labelledby="section-modelos-tab" tabindex="0">
-            <h1>modelos</h1>
-        </div>
-    
         <!-- Sección configuración -->
         <div class="tab-pane fade" id="section-configuracion-tab-pane" role="tabpanel" aria-labelledby="section-configuracion-tab" tabindex="0">
             <div class="container my-4">
 
                 <div class="square mb-3">
-                    <h2>Configuración</h2>
+                    <h2 id="ipai-h2-configuracion">Configuración</h2>
                 </div>
 
                 <hr class="border border-primary border-1 opacity-75">
@@ -143,7 +135,7 @@
                 <!-- Box para guardar la clave API -->
                 <div class="row mb-3"> <!-- Div con dos cajas -->
                     <div class="col-md-6"> <!-- Div caja izquierda -->
-                        <div class="square"><p>Guarda aquí tu clave de PandasAI para poder hacer las consultas</p></div>
+                        <div class="square"><p id="ipai-p-clave">Guarda aquí tu clave de PandasAI para poder hacer las consultas</p></div>
                     </div>
                     <div class="col-md-6"> <!-- Div caja derecha -->
                         <div class="square">
@@ -160,9 +152,9 @@
                     <div class="form-group">
                         <label for="selectorLenguaje" id="labelLenguaje" class="form-label">Selecciona tu idioma:</label>
                         <select name="" id="selectorLenguaje" class="form-select" aria-label="Selector de idioma">
-                            <option value="es" selected>Español</option>
-                            <option value="en">Inglés</option>
-                            <option value="ca">Catalán</option>
+                            <option value="es" selected>Spanish</option>
+                            <option value="en">English</option>
+                            <option value="ca">Catalan</option>
                         </select>
                     </div>
                 </div>
@@ -175,22 +167,22 @@
             <div class="container my-4">
 
                 <div class="square mb-3">
-                    <h2>Ayuda</h2>
+                    <h2 id="ipai-h2-ayuda">Ayuda</h2>
                 </div>
 
                 <hr class="border border-primary border-1 opacity-75">
 
                 <div class="square mb-3">
-                    Ante cualquier duda respecto a la extensión puedes consultar la información en el repositorio <a href="https://github.com/AlexMadrid-coder/I-pAI">Repositorio I-pAI</a>
+                    <p id="ipai-p-repositorio">Ante cualquier duda respecto a la extensión puedes consultar la información en el repositorio <a href="https://github.com/AlexMadrid-coder/I-pAI">Repositorio I-pAI</a></p>
                 </div>
                 
                 <div class="row mb-3"> <!-- Div con dos cajas -->
                     <div class="col-md-6"> <!-- Div caja izquierda -->
-                        <div class="square"><p>Pronto traeremos un video tutorial sobre su funcionamiento</p></div>
+                        <div class="square"><p id="ipai-p-video">Pronto traeremos un video tutorial sobre su funcionamiento</p></div>
                     </div>
 
                     <div class="col-md-6"> <!-- Div caja derecha -->
-                        <div class="square"><p>En las próximas actualizaciones traeremos un foro para preguntas y respuestas pero por ahora puedes usar la documentación de PandasAI <a href="https://docs.pandas-ai.com/intro">Pulsa aquí</a></p></div>
+                        <div class="square"><p id="ipai-p-actualizaciones">En las próximas actualizaciones traeremos un foro para preguntas y respuestas pero por ahora puedes usar la documentación de PandasAI <a href="https://docs.pandas-ai.com/intro">Pulsa aquí</a></p></div>
                     </div>
                 </div>
             </div>
@@ -202,5 +194,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="${jsBaseURI}/main.js" type="module"> </script>
     <script src="${jsBaseURI}/communication.js" type="module"></script>
+    <script src="${jsBaseURI}/languaje.js" type="module"></script>
 </body>
 </html>
