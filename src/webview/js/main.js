@@ -186,9 +186,9 @@ export function mostrarError(errorMessage) {
 //----------------------------------------------------------------------------//
 /**
  * TRIGGER --> chat-input
- * 
  * Inhabilitamos el botón de enviar consulta si no tenemos nada escrito en el textarea de consulta
- */
+ * 
+*/
 document.getElementById('chat-input').addEventListener('input', function() {
     if (document.getElementById('send-btn').textContent.trim() !== "") {
         document.getElementById('send-btn').disabled = false;

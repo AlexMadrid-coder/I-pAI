@@ -82,7 +82,7 @@ export function cambiarIdioma(idioma) {
     for (const [clave, traduccion] of Object.entries(languajeData[idioma])) {
         // Buscamos el elemento en la página por su ID y si existe lo cambiamos
         const element = document.getElementById(clave);
-        if (elemento) {
+        if (element) {
             // Cambiamos el contenido por el seleccionado
             element.innerHTML = traduccion;
         }

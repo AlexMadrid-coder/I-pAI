@@ -126,8 +126,22 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 							vscode.window.showInformationMessage('Clave API guardada correctamente.');
 							break;
 						case 'obtenerClave': // Devolvemos al JS la clave de la memoria
-							const clave = extensionContext.globalState.get('claveAPI');
-							webviewView.webview.postMessage({command: 'claveAPI', clave});
+							webviewView.webview.postMessage({command: 'claveAPI', 
+								clave: extensionContext.globalState.get('claveAPI')});
+							break;
+						case 'ipai-cambiarTema': // Guardamos le último tema en la memoria
+							extensionContext.globalState.update('ipai-Tema', message.clave);
+							break;
+						case 'ipai-getTema': // Devolvemos el tema guardado
+							webviewView.webview.postMessage({command: 'ipai-Tema',
+								clave: extensionContext.globalState.get('ipai-Tema')});
+							break;
+						case 'ipai-cambiarLenguaje': // Guardamos en memoria el Lenguaje guardado
+								extensionContext.globalState.update('ipai-Lenguaje', message.clave);
+							break;
+						case 'ipai-getLenguaje': // Devolvemos el lenguaje guardado
+								webviewView.webview.postMessage({command: 'ipai-Lenguaje', 
+									clave: extensionContext.globalState.get('ipai-Lenguaje')});
 							break;
 						case 'error-NoConsulta': // Gestión de error --> No hemos subido consulta
 							vscode.window.showErrorMessage("Sin consulta no podemos trabajar");

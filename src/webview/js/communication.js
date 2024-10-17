@@ -2,6 +2,7 @@
 import { addMessage } from './main.js';
 import { mostrarError } from './main.js';
 import { mostrarResultados } from './main.js';
+import { cambiarIdioma } from './languaje.js';
 
 // Declaramos las variables globales necesarias
 const vscode = acquireVsCodeApi(); // Con esto creamos el flujo vscode-webview
@@ -21,20 +22,51 @@ document.addEventListener('DOMContentLoaded', function() {
         const clave = document.getElementById('claveInput').value;
         vscode.postMessage({command: 'guardarClave', clave: clave});
     });
+    /**
+     * TRIGGER --> selectorTema
+     * 
+     * Guardamos en la memoria de la extensión el tema que queremos utilizar
+     */
+    document.getElementById('selectorTema').addEventListener('change',  () => {
+        const clave = document.getElementById('selectorTema').value;
+        vscode.postMessage({command: 'ipai-cambiarTema', clave: clave});
+
+    });
+    /**
+     * TRIGGER --> cambiarIdioma
+     * 
+     * Guardamos en memoria de la extensión el idioma que queremos utilizar
+     */
+    document.getElementById('selectorLenguaje').addEventListener('change', () => {
+        const clave = document.getElementById('selectorLenguaje').value;
+        vscode.postMessage({command: 'ipai-cambiarLenguaje', clave: clave});
+        cambiarIdioma(clave);
+    });
     // Mandamos al TS que queremos la clave
     vscode.postMessage({command: 'obtenerClave'});
+    // Mandasmos al TS que queremos el tema guardado
+    vscode.postMessage({command: 'ipai-getTema'});
+    // Mandamos al TS que queremos el lenguaje guardado
+    vscode.postMessage({command: 'ipai-getLenguaje'});
     /**
      * TRIGGER --> message
      * 
      * Después de solicitar la clave esperamos y recogemos el mensaje
      * 
      *      command --> Mensaje que recibimos del TS
-     *      clave   --> Contenido, clave API
+     *      clave   --> Contenido, clave API, valor del tema a utilizar y idioma a utilizar
      */
     window.addEventListener('message', event => {
         const message = event.data;
         if (message.command === 'claveAPI' && message.clave) {
             document.getElementById('claveInput').value = message.clave;
+        }
+        else if (message.command === 'ipai-Tema' && message.clave) {
+            // Aquí cambiamos el seleccionado del anterior al nuevo y luego cambiamos el idioma
+        }
+        else if (message.command === 'ipai-Lenguaje' && message.clave) {
+            // Aquí recibimos el lenguaje seleccionado y cambiamos todo lo hecho
+            cambiarIdioma(message.clave);
         }
     });
 });
