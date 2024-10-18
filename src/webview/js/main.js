@@ -135,7 +135,10 @@ export function mostrarResultados(outputPrompt, lastCodeExecuted) {
     // Asignamos el texto al p 
     textoResultado.innerText = outputPrompt;
     // Añadimos las clases al div 
-    divResultado.classList.add('square-success');
+    divResultado.classList.add('square', 'square-success');
+    // Línea para el tema claro u oscuro
+    if (document.body.classList.contains('body-light')) { divCodigo.classList.add('square-light'); }
+    // 
     divResultado.id = 'div-resultado';
     // Ahora creamos el botón para copiar lastCodeExecuted al portapapeles
     const botonCopiar = document.createElement('button');
@@ -147,8 +150,6 @@ export function mostrarResultados(outputPrompt, lastCodeExecuted) {
     botonCopiar.addEventListener('click', function() {
         const divCodigo = document.createElement('div');
         divCodigo.classList.add('square', 'square-success');
-        // Línea para el tema claro u oscuro
-        if (document.body.classList.contains('body-light')) { divCodigo.classList.add('square-light'); }
         //
         divCodigo.innerText = lastCodeExecuted;
         document.getElementById('chat-zone').appendChild(divCodigo);
