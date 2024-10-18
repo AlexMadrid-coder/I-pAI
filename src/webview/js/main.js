@@ -1,3 +1,4 @@
+
 // Variables globales para la gestión de la lógica del programa
 let fileUploaded = false;
 //----------------------------------------------------------------------------//
@@ -55,7 +56,7 @@ document.getElementById('chat-input').addEventListener('input', function() {
  *      Si fichero no subido -->    Apariencia Subir Fichero
  */
 document.getElementById('custom-upload-btn').addEventListener('click', function() {
-    const btn =         document.getElementById('upload-btn');
+    const btn = document.getElementById('upload-btn');
     // Ahora aplicamos la lógica del botón con la variable declarada
     if (fileUploaded) { // Caso ya tenemos un fichero subido
         document.getElementById('upload-btn').value = ''; // Eliminamos el fichero
@@ -95,19 +96,11 @@ document.getElementById('upload-btn').addEventListener('change', function() {
         // Creamos el div que contendrá el mensaje
         const nuevoMensaje = document.createElement('div');
         nuevoMensaje.classList.add('square');
+        // Esta línea es por si estamos con los temas claros
+        if (document.body.classList.contains('body-light')) { nuevoMensaje.classList.add('square-light'); }
+        //
         nuevoMensaje.innerText = mensaje;
         nuevoMensaje.id = 'div-prompt';
-
-        /**
-        // Ahora metemos como párrafo el texto de la pregunta
-        const parrafo = document.createElement('p');
-        parrafo.textContent = mensaje;
-        parrafo.id = 'inputText';
-
-        // Metemos el parrafo en el nuevo div
-        nuevoMensaje.appendChild(parrafo);
-        */
-        
         // Metemos el nuevo div en el div chatbot
         document.getElementById('chat-zone').appendChild(nuevoMensaje);
         // Limpiamos el textArea 
@@ -153,7 +146,10 @@ export function mostrarResultados(outputPrompt, lastCodeExecuted) {
     // Creamos el listener para el botón y mostrar el código
     botonCopiar.addEventListener('click', function() {
         const divCodigo = document.createElement('div');
-        divCodigo.classList.add('square-success');
+        divCodigo.classList.add('square', 'square-success');
+        // Línea para el tema claro u oscuro
+        if (document.body.classList.contains('body-light')) { divCodigo.classList.add('square-light'); }
+        //
         divCodigo.innerText = lastCodeExecuted;
         document.getElementById('chat-zone').appendChild(divCodigo);
         botonCopiar.remove();
@@ -197,3 +193,4 @@ document.getElementById('chat-input').addEventListener('input', function() {
         document.getElementById('send-btn').disabled = true;
     }
 });
+

@@ -7,6 +7,9 @@
     --main-yellow: #e28743;
     --main-red: #aa1115;
     --main-green: #5aaa11;
+    --main-beige-bc: #cdb891;
+    --main-beige-ft: #faebd7;
+    --main-dark-font: #1c1c1c;
 }
 
 .navbar-logo {
@@ -30,11 +33,17 @@
     background: var(--main-btn-color-hover);
 }
 body{
+    background-color: var(--main-black);
     background-color: var(--main-grey);
     color: white;
     margin: 0;
     padding: 0;
 }
+.body-light {
+    background-color: var(--main-beige-bc);
+    color: var(--main-dark-font);
+}
+/*  */
 .square{
     background-color: var(--main-black);
     border: 1px solid var(--main-btn-color);
@@ -43,29 +52,18 @@ body{
     border-radius: 15px;
     margin-bottom: 10px;
 }
+.square-light {
+    background-color: var(--main-beige-ft);
+}
+/*  */
 .square-waiting{
-    background-color: var(--main-black);
     border: 1px solid var(--main-yellow);
-    padding: 10px;
-    text-align: center;
-    border-radius: 15px;
-    margin-bottom: 10px;
 }
 .square-error {
-    background-color: var(--main-black);
     border: 1px solid var(--main-red);
-    padding: 10px;
-    text-align: center;
-    border-radius: 15px;
-    margin-bottom: 10px;
 }
 .square-success {
-    background-color: var(--main-black);
     border: 1px solid var(--main-green);
-    padding: 10px;
-    text-align: center;
-    border-radius: 15px;
-    margin-bottom: 10px;
 }
 .input-group{
     margin-bottom: 20px;

@@ -3,6 +3,7 @@ import { addMessage } from './main.js';
 import { mostrarError } from './main.js';
 import { mostrarResultados } from './main.js';
 import { cambiarIdioma } from './languaje.js';
+import { cambiarTema } from './tema.js';
 
 // Declaramos las variables globales necesarias
 const vscode = acquireVsCodeApi(); // Con esto creamos el flujo vscode-webview
@@ -28,9 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
      * Guardamos en la memoria de la extensión el tema que queremos utilizar
      */
     document.getElementById('selectorTema').addEventListener('change',  () => {
-        const clave = document.getElementById('selectorTema').value;
-        vscode.postMessage({command: 'ipai-cambiarTema', clave: clave});
-
+        vscode.postMessage({command: 'ipai-cambiarTema', clave: 'changed'});
+        cambiarTema();
     });
     /**
      * TRIGGER --> cambiarIdioma
@@ -62,7 +62,11 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('claveInput').value = message.clave;
         }
         else if (message.command === 'ipai-Tema' && message.clave) {
-            // Aquí cambiamos el seleccionado del anterior al nuevo y luego cambiamos el idioma
+            // Aquí cambiamos el tema que ya teníamos guardado si lo habíamos cambiado previemente
+            if (message.clave === 'changed') {
+                cambiarTema();
+                document.getElementById('selectorTema').checked = true;
+            }
         }
         else if (message.command === 'ipai-Lenguaje' && message.clave) {
             // Aquí recibimos el lenguaje seleccionado y cambiamos todo lo hecho

@@ -130,7 +130,11 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 								clave: extensionContext.globalState.get('claveAPI')});
 							break;
 						case 'ipai-cambiarTema': // Guardamos le último tema en la memoria
-							extensionContext.globalState.update('ipai-Tema', message.clave);
+							if (extensionContext.globalState.get('ipai-Tema') === 'changed') {
+								extensionContext.globalState.update('ipai-Tema', 'no');
+							} else {
+								extensionContext.globalState.update('ipai-Tema', message.clave);
+							}
 							break;
 						case 'ipai-getTema': // Devolvemos el tema guardado
 							webviewView.webview.postMessage({command: 'ipai-Tema',

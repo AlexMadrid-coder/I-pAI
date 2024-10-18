@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="${cssBaseURI}/main.css">
     <title>I-pAI</title>
 </head>
-<body>
+<body class="body-dark">
     <div>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -89,11 +89,11 @@
                     </div>
                 </div>
                 <!-- Div con el mensaje de esperando -->
-                <div id="div-waiting" class="square-waiting hide">
+                <div id="div-waiting" class="square square-waiting hide">
                     <img src="${iconsBaseURI}/pandasai-image.png" alt="PandasAI-Logo">
                 </div>
                 <!-- Div con la gestión de errores de la extensión -->
-                <div id="div-error" class="square-error hide">
+                <div id="div-error" class="square square-error hide">
                     <p id="ipai-chat-error">Ha ocurrido un error</p>
                 </div>
                 <div> <!-- Zona con la input box de text y los botones  de enviar y subir -->
@@ -202,5 +202,6 @@
     <script src="${jsBaseURI}/main.js" type="module"> </script>
     <script src="${jsBaseURI}/communication.js" type="module"></script>
     <script src="${jsBaseURI}/languaje.js" type="module"></script>
+    <script src="${jsBaseURI}/tema.js" type="module"></script>
 </body>
 </html>
