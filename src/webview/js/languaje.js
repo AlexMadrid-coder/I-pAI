@@ -22,6 +22,7 @@ const languajeData = {
         'ipai-p-repositorio'    : 'Ante cualquier duda respecto a la extensión puedes consultar la información en el repositorio <a href="https://github.com/AlexMadrid-coder/I-pAI">Repositorio I-pAI</a>',
         'ipai-p-video'          : 'Pronto traeremos un video tutorial sobre su funcionamiento',
         'ipai-p-actualizaciones': 'En las próximas actualizaciones traeremos un foro para preguntas y respuestas pero por ahora puedes usar la documentación de PandasAI <a href="https://docs.pandas-ai.com/intro">Pulsa aquí</a>',
+        'label-selectorTema'    : 'Cambia de tema',
     },
     en: {
         'ipai-p-inicio'         : 'Starting',
@@ -46,6 +47,7 @@ const languajeData = {
         'ipai-p-repositorio'    : 'Whatever doubt you could have try read the docs in my github <a href="https://github.com/AlexMadrid-coder/I-pAI">Repositorio I-pAI</a>',
         'ipai-p-video'          : 'Soon we will have a video tutorial about how the extension works',
         'ipai-p-actualizaciones': 'In future versions we wil have an question-answer forum but you can check PandasAI documentation if you have any error <a href="https://docs.pandas-ai.com/intro">Here</a>',
+        'label-selectorTema'    : 'Change your theme here',
     },
     ca: {
         'ipai-p-inicio'         : 'Inici',
@@ -70,6 +72,7 @@ const languajeData = {
         'ipai-p-repositorio'    : 'Si dubtes amb l\'utilizació de la extensió pots llegir l\'informació al meu repositori de github <a href="https://github.com/AlexMadrid-coder/I-pAI">Repositorio I-pAI</a>',
         'ipai-p-video'          : 'Estem treballand en un video tutorial sobre el funcionament de l\'extensió',
         'ipai-p-actualizaciones': 'En les pròximes actualitzacions farem un forum de preguntes i respostes pero per ara si tens problemes llig la <a href="https://docs.pandas-ai.com/intro">documentació de PandasAI</a>',
+        'label-selectorTema'    : 'Canvia el teu tema',
     }
 };
 /**
