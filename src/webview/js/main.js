@@ -121,10 +121,6 @@ document.getElementById('upload-btn').addEventListener('change', function() {
  */
 export function mostrarResultados(outputPrompt, lastCodeExecuted) {
     // Escondemos el div de esperando
-    console.log(lastCodeExecuted);
-    console.log(typeof lastCodeExecuted);
-    console.log(outputPrompt);
-    console.log(typeof outputPrompt);
     const divEsperando = document.getElementById('div-waiting');
     if (divEsperando) {
         divEsperando.classList.add('hide');

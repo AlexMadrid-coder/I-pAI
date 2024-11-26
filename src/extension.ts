@@ -148,13 +148,13 @@ class SidebarProvider implements vscode.WebviewViewProvider{
 									clave: extensionContext.globalState.get('ipai-Lenguaje')});
 							break;
 						case 'error-NoConsulta': // Gestión de error --> No hemos subido consulta
-							vscode.window.showErrorMessage("Sin consulta no podemos trabajar");
+							vscode.window.showErrorMessage("No podemos trabajar sin consulta");
 							break;
 						case 'error-NoFichero': // Gestión de error --> No hemos subido fichero
-							vscode.window.showErrorMessage("Sin fichero no podemos trabajar correctamente");
+							vscode.window.showErrorMessage("No podemos trabajar sin fichero");
 							break;
 						case 'error-FormatoIncorrecto': // Gestión de error --> El formato del fichero es incorrecto
-							vscode.window.showErrorMessage("Extensión " + message.error + " incorrecto");
+							vscode.window.showErrorMessage("Formato: " + message.error + " incorrecto");
 							break;
 						case 'ipai-copyClipboard':
 							vscode.env.clipboard.writeText(message.lastCodeExecuted).then(() => {

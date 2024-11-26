@@ -83,10 +83,6 @@ window.addEventListener('message', event => {
     // Verificamos que hemos recibido el mensaje correcto o error
     if (message.command === 'ipai-resultado') {
         // Simplemente llamo a esta función 
-        console.log("Mensaje completo: \n", message);
-        console.log(Object.keys(message));
-        console.log(typeof message.outputPrompt);
-        console.log(typeof message.lastExecutedCode);
         mostrarResultados(message.outputPrompt, message.lastExecutedCode);
     }
     else if (message.command === 'ipai-error') {
