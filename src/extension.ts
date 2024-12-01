@@ -1,7 +1,10 @@
 // The module 'vscode' contains the VS Code extensibility API
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import { spawn } from 'child_process';
+import { spawn, exec } from 'child_process';
+import * as os from 'os';
+import * as path from 'path';
+import { stderr } from 'process';
 /**
  * Declaración de variables globales
  */
@@ -43,6 +46,7 @@ interface PythonResult {
 export function activate(context: vscode.ExtensionContext) {
 	// Guardamos el contexto de la extensión en el de la API de vscode para poder comunicarnos
 	extensionContext = context;
+
 	//
 	const provider = new SidebarProvider(context.extensionUri); // Contenido arreglado de la pag. web
 	/**
@@ -51,6 +55,16 @@ export function activate(context: vscode.ExtensionContext) {
 	 */
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider('ipai.mainContainer', provider) // Agregamos la pag. web al primary sidebar
+	);
+	context.subscriptions.push( // Registramos el comando para poder instalar las dependencias
+		vscode.commands.registerCommand('pai.installDependencies', async () => {
+			try {
+				await setupPythonEnvironment();
+				vscode.window.showInformationMessage('Python Dependencies successful installed');
+			} catch(e) {
+				vscode.window.showErrorMessage(`An error showed instaling Python Dependencies --> \n${e}`);
+			}
+		})
 	);
 }
 //----------------------------------------------------------------------------//
@@ -258,6 +272,49 @@ function executePython(directorio: string, nombre: string, consulta: string, ext
 	});
 }
 //----------------------------------------------------------------------------//
+/**
+ * @brief Función que instala el environment para nuestro proyecto en la propia carpeta del proyecto
+ */
+async function setupPythonEnvironment(): Promise<void> {
+	const pythonExecutable = isWindows ? 'python': 'python3'; // Según el OS seleccionamos el ejecutable
+	const envDir = isWindows // Sacamos el virtual environment
+		? path.join(__dirname, '..', 'src', 'python', 'venv-windows')
+		: path.join(__dirname, '..', 'src', 'python', 'venv-linux');
+
+	const requirementsFile = isWindows  // Sacamos los requerimentos
+		? path.join(__dirname, '..', 'src', 'python', 'paquetes-windows')
+		: path.join(__dirname, '..', 'src', 'python', 'paquetes-linux');
+
+	// Verificamosw que el entorno ya existeç
+	if (!fs.existsSync(envDir)) {
+		// Creamos el entorno virtual
+		await executeCommand(`${pythonExecutable} -m venv ${envDir}`);
+	}
+	// Instalamos las dependencias
+	const pipPath = isWindows
+		? path.join(envDir, 'Scripts', 'pip.exe')
+		: path.join(envDir, 'bin', 'pip');
+	// Ahora las instalamos
+	await executeCommand(`${pipPath} install -r ${requirementsFile}`);
+}
+//----------------------------------------------------------------------------//
+/**
+ * 
+ * @param command Comando que vamos a ejecutar
+ * @returns Mensaje de error si la ejecución no ha sido exitosa
+ */
+function executeCommand(command: string): Promise<void> {
+	return new Promise((resolve, reject) => {
+		exec(command, (error, stdout, stderr) => {
+			if (error) {
+				reject(stderr ||error.message);
+				return;
+			}
+			console.log(stdout);
+			resolve();
+		});
+	});
+}
 /**
  * Función que desactiva la extensión cuando el propio Visual Studio Code lo necesita
  */

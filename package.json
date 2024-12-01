@@ -18,11 +18,11 @@
   "contributes": {
     "commands": [
       {
-        "command": "ipai.helloWorld",
-        "title": "Hello World"
+        "command": "ipai.installDependencies",
+        "title": "Install Python OS Dependencies"
       },
       {
-        "command": "extension.ipai.show",
+        "command": "ipai.show",
         "title": "Show I-pAI primary sidebar"
       }
     ],
