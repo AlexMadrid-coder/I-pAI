@@ -45,7 +45,7 @@ En el entorno de desarrollo se utilizan las siguientes herramientas:
 Primero, clona este repositorio en tu máquina local:
 
 ```bash
-git clone https://github.com/tu-usuario/I-pAI.git
+git clone https://github.com/AlexMadrid-coder/I-pAI.git
 cd I-pAI
 ```
 
